@@ -1,3 +1,4 @@
+import Header from '@/components/layout/Header';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -25,7 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div id="app" className="mx-auto max-w-3xl">
+          <Header />
+          <main>{children}</main>
+        </div>
+        <div id="catalog-portal"></div>
+      </body>
     </html>
   );
 }

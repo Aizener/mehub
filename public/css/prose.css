@@ -1,0 +1,41 @@
+.prose h1,
+h2,
+h3 {
+  color: var(--color-gray-800) !important;
+  border-bottom-style: dashed !important;
+}
+
+.prose h1 {
+  font-size: 24px;
+}
+.prose h2 {
+  font-size: 18px;
+}
+.prose h3 {
+  font-size: 14px;
+}
+.prose p {
+  margin: 12px 0;
+}
+.prose ul {
+  list-style-type: auto !important;
+}
+.prose ol {
+  list-style-type: circle !important;
+}
+
+.prose span > code {
+  margin: 0 2px;
+}
+
+.prose figure {
+  margin-left: 0;
+}
+
+/* Shiki / rehype-pretty-code 必需样式 */
+.prose pre code span {
+  color: var(--shiki-light);
+}
+.prose .dark pre code span {
+  color: var(--shiki-dark);
+}
