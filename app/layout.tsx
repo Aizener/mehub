@@ -1,4 +1,5 @@
 import Header from '@/components/layout/Header';
+import Main from '@/components/layout/Main';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div id="app" className="mx-auto max-w-3xl">
           <Header />
-          <main>{children}</main>
+          <Main>{children}</Main>
         </div>
         <div id="catalog-portal"></div>
       </body>

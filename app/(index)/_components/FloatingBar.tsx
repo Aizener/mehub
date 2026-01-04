@@ -1,6 +1,11 @@
 'use client';
 
+import CardContent from '@/components/CardContent';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { getOnlineTime } from '@/lib/useOnlineTime';
+import { BadgeCheckIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const searchPlatforms = [
@@ -48,15 +53,47 @@ const searchPlatforms = [
 
 function FloatingBar() {
   const [searchText, setSearchText] = useState('');
+  const { days } = getOnlineTime();
 
   return (
-    <div className="overflow-y-auto md:w-3xs lg:fixed lg:max-h-[85vh]">
-      <div className="bg-background/50 rounded-md border p-3 shadow-sm">
+    <div className="order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs">
+      <CardContent className="flex items-center gap-x-3">
+        <Avatar className="size-10 border border-gray-200 p-0.5">
+          <AvatarImage src="/imgs/avatar.jpg" alt="@shadcn" className="rounded-full" />
+          <AvatarFallback>Cola</AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col gap-y-1">
+          <h1 className="text-md font-bold text-gray-800">可乐爱宅着</h1>
+          <div className="flex flex-wrap items-center gap-x-1">
+            <Badge
+              className="h-5 bg-red-600 text-xs text-white dark:bg-blue-600"
+              variant="secondary"
+            >
+              90后
+            </Badge>
+            <Badge
+              className="h-5 bg-blue-500 text-xs text-white dark:bg-blue-600"
+              variant="secondary"
+            >
+              宅
+            </Badge>
+            <Badge
+              className="h-5 bg-orange-500 text-xs text-white dark:bg-blue-600"
+              variant="secondary"
+            >
+              <BadgeCheckIcon />
+              爱打游戏
+            </Badge>
+          </div>
+        </div>
+      </CardContent>
+
+      <CardContent className="mt-2 shadow-sm">
         <h1 className="text-center text-lg font-bold">公告栏</h1>
         <div className="text-foreground/80 p-2 text-sm">小站还在建设中哦~</div>
-      </div>
+      </CardContent>
 
-      <div className="bg-background/50 mt-4 hidden rounded-md border p-3 shadow-sm lg:block">
+      <CardContent className="mt-2 hidden lg:block">
         <h1 className="text-center text-lg font-bold">便捷搜索</h1>
         <div className="flex flex-col gap-y-2 py-2">
           <Input
@@ -78,22 +115,22 @@ function FloatingBar() {
             ))}
           </div>
         </div>
-      </div>
+      </CardContent>
 
-      <div className="bg-background/50 mt-4 space-y-1 rounded-md border p-3 shadow-sm">
+      <CardContent className="mt-2 space-y-1">
         <div className="flex items-center justify-between text-sm">
-          <span>版本</span>
+          <span>版本号</span>
           <span>v0.0.1</span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span>已运行</span>
-          <span>1天</span>
+          <span>本站已运行</span>
+          <span>{`${days} 天`}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
           <span>备案号</span>
           <span>@蜀20260101</span>
         </div>
-      </div>
+      </CardContent>
     </div>
   );
 }

@@ -42,8 +42,8 @@ export const generateMetadata = async () => {
 
 async function HomePage() {
   return (
-    <div className="flex w-full flex-col gap-y-4 lg:flex-row lg:gap-x-4">
-      <div className="w-full">
+    <div className="flex w-full flex-col gap-y-4 pt-2 md:gap-x-4 md:pt-0 lg:flex-row">
+      <div className="order-2 w-full">
         <CardContent>
           <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
             小站介绍
@@ -71,7 +71,7 @@ async function HomePage() {
                 key={img}
                 className="relative h-12 w-12 overflow-hidden rounded-sm border shadow-sm"
               >
-                <Image fill src={`/tech/${img}`} alt={img} />
+                <Image fill src={`/tech/${img}`} alt={img} sizes="48px" />
               </div>
             ))}
           </div>
