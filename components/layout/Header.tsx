@@ -8,7 +8,7 @@ const navs = [
   { path: '/', title: 'Home' },
   { path: '/blog', title: 'Blog' },
   { path: '/daily', title: 'Daily' },
-  { path: '/about', title: 'About' },
+  // { path: '/about', title: 'About' },
 ];
 function Header() {
   const pathname = usePathname();

@@ -1,12 +1,18 @@
 import { Post } from '@/.content-collections/generated';
 import CardContent from '@/components/CardContent';
 import TagAndDate from '@/components/post/TagAndDate';
-import { Badge } from '@/components/ui/badge';
 import { getAllPosts } from '@/lib/usePosts';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-console.log('allPosts', getAllPosts());
+export const generateMetadata = async () => {
+  const title = "I'm Cola's Blog";
+  const description = "I'm Cola's Blog";
+  return {
+    title,
+    description,
+  };
+};
 
 const posts = getAllPosts();
 function BlogPage() {
