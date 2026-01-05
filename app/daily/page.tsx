@@ -1,5 +1,5 @@
-import { getAllDailies } from '@/lib/useDaily';
-import { getWeatherIcon, weatherIconMap } from '@/lib/weather';
+import { getAllDailies } from '@/lib/useContents';
+import { getWeatherIcon } from '@/lib/weather';
 import { CalendarClock } from 'lucide-react';
 
 const dailies = getAllDailies();

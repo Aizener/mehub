@@ -10,7 +10,7 @@ import { z } from 'zod';
 
 const posts = defineCollection({
   name: 'posts',
-  directory: 'posts',
+  directory: 'contents/posts',
   include: '**/*.mdx',
   schema: z.object({
     title: z.string(),
@@ -18,7 +18,7 @@ const posts = defineCollection({
     tags: z.array(z.string()),
   }),
   transform: async (doc, ctx) => {
-    const file = await stat(resolve(process.cwd(), 'posts', doc._meta.filePath));
+    const file = await stat(resolve(process.cwd(), 'contents/posts', doc._meta.filePath));
     const mdx = await compileMDX(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
@@ -46,14 +46,14 @@ const posts = defineCollection({
 
 const daily = defineCollection({
   name: 'daily',
-  directory: 'daily',
+  directory: 'contents/daily',
   include: '**/*.mdx',
   schema: z.object({
     title: z.string(),
     weather: z.string(),
   }),
   transform: async (doc) => {
-    const file = await stat(resolve(process.cwd(), 'daily', doc._meta.filePath));
+    const file = await stat(resolve(process.cwd(), 'contents', doc._meta.filePath));
     return {
       ...doc,
       date: file.birthtime,

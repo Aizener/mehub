@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/usePosts';
+import { getAllPosts } from '@/lib/useContents';
 
 import PostDisplay from '../_components/PostDisplay';
 

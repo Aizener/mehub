@@ -1,7 +1,6 @@
 import CardContent from '@/components/CardContent';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import FloatingBar from './_components/FloatingBar';
 
@@ -71,7 +70,7 @@ async function HomePage() {
                 key={img}
                 className="relative h-12 w-12 overflow-hidden rounded-sm border shadow-sm"
               >
-                <Image fill src={`/tech/${img}`} alt={img} sizes="48px" />
+                <Image fill src={`/imgs/tech/${img}`} alt={img} sizes="48px" />
               </div>
             ))}
           </div>

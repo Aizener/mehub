@@ -1,7 +1,6 @@
-import { Post } from '@/.content-collections/generated';
 import CardContent from '@/components/CardContent';
 import TagAndDate from '@/components/post/TagAndDate';
-import { getAllPosts } from '@/lib/usePosts';
+import { getAllPosts } from '@/lib/useContents';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -15,6 +14,7 @@ export const generateMetadata = async () => {
 };
 
 const posts = getAllPosts();
+console.log(posts);
 function BlogPage() {
   return (
     <div className="w-full px-2 md:px-0">
