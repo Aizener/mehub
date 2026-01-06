@@ -1,4 +1,4 @@
-import { stat } from 'fs/promises';
+import { readFile, stat } from 'fs/promises';
 import { resolve } from 'path';
 
 import { defineCollection, defineConfig } from '@content-collections/core';
@@ -52,10 +52,32 @@ const daily = defineCollection({
     title: z.string(),
     weather: z.string(),
   }),
-  transform: async (doc) => {
-    const file = await stat(resolve(process.cwd(), 'contents', doc._meta.filePath));
+  transform: async (doc, ctx) => {
+    const filePath = resolve(process.cwd(), 'contents/daily', doc._meta.filePath);
+    const file = await stat(filePath);
+    const weekday = new Date(file.birthtime).getDay();
+    const mdx = await compileMDX(ctx, doc, {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [
+        rehypeSlug,
+        [
+          rehypePrettyCode,
+          {
+            theme: {
+              light: 'github-light',
+              dark: 'github-dark',
+            },
+            defaultLang: 'ts',
+            keepBackground: false,
+          },
+        ],
+      ],
+    });
     return {
       ...doc,
+      mdx,
+      weekday,
+      content: await readFile(filePath, 'utf-8'),
       date: file.birthtime,
     };
   },

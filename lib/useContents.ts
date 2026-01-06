@@ -21,6 +21,5 @@ export const getAllDailies = () => {
 };
 
 export const getAllPosts = () => {
-  console.log(111, allPosts);
   return getContents<Post>(allPosts);
 };
