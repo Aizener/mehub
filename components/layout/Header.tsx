@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navs = [
-  { path: '/', title: 'Home' },
-  { path: '/blog', title: 'Blog' },
-  { path: '/daily', title: 'Daily' },
+  { path: '/', title: '主页' },
+  { path: '/blog', title: '博客' },
+  { path: '/daily', title: '碎碎念' },
   // { path: '/about', title: 'About' },
 ];
 function Header() {

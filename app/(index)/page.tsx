@@ -10,11 +10,14 @@ const imgs = [
   'vue.png',
   'react.png',
   'next.png',
+  'nuxt.png',
   'node.png',
   'nest.png',
   'docker.png',
-  'mysql.png',
+  'postgresql.png',
+  // 'mysql.png',
   'vscode.png',
+  'cursor.png',
 ];
 
 export const generateMetadata = async () => {
@@ -26,22 +29,22 @@ export const generateMetadata = async () => {
     keywords: [
       'Cola',
       '个人小站',
-      '前端',
-      '全栈',
+      'Web前端',
+      'Web全栈',
       'JavaScript',
       'TypeScript',
-      'NextJS',
-      'NestJS',
-      'NodeJS',
-      'Vue',
-      'React',
+      'next.js',
+      'next.js',
+      'node.js',
+      'vue.js',
+      'react.js',
     ],
   };
 };
 
 async function HomePage() {
   return (
-    <div className="flex w-full flex-col gap-y-4 pt-2 md:gap-x-4 md:pt-0 lg:flex-row">
+    <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:gap-x-4 md:px-0 md:pt-0 lg:flex-row">
       <div className="order-2 w-full">
         <CardContent>
           <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
@@ -50,10 +53,9 @@ async function HomePage() {
           <div className="mt-4 text-sm">
             <p>哈喽，欢迎来此小站的朋友~</p>
             <p className="mt-1 break-all">
-              这个小站，主要分享的是和<strong>Web全栈开发</strong>
-              有关的技术。编程语言主要包含
-              <strong>JavaScript(TypeScript)</strong>
-              ，我喜欢这门语言，可以做好多好多有趣的事情出来，一直在学习中...
+              这个小站是我记录<strong>Web全栈开发</strong>
+              的一个小角落，编程语言主要是<strong>JavaScript(TypeScript)</strong>
+              ，我喜欢它们，也一直在学习中...或许也会分享其他的内容。
             </p>
           </div>
         </CardContent>
@@ -81,19 +83,16 @@ async function HomePage() {
           </h1>
 
           <div className="mt-4 text-sm">
-            <p>其实我个人没啥好说的，不过作为个人网站，还是得说一说￣□￣｜｜...</p>
-            <p>
-              <strong>大专毕业</strong>
-              已多年，从一开始学校的<strong>Java学习</strong>
-              ，到后面参加工作却是做<strong>PHP开发</strong>
-              ，再到现在从事前端。没有经历过什么特别优秀的项目，还属于一个比较茫然的状态...
+            <p>其实我个人没啥好说的，不过作为一个个人网站，还是得说一说叭叭一下才对￣□￣｜｜...</p>
+            <p className="mt-2">
+              毕业多年，从学校学习<strong>Java</strong>
+              开始，到后来尝试<strong>PHP开发</strong>
+              ，再到如今专注于前端/全栈开发。技术栈在不断变化，也在不断学习和探索中...
             </p>
             <p className="mt-2">
               目前的话，个人还是比较倾向于基于
-              <strong>JavaScript的全栈开发</strong>
-              。我很喜欢这门语言，语法是我的菜，比起曾经使用<strong>PHP</strong>
-              来说，体验简直不要好太多，至于<strong>Java</strong>
-              已经太久没用忘记很多了，而且有<strong>NestJS</strong>
+              <strong>JS/TS全栈开发</strong>
+              。我很喜欢这门语言，语法是我的菜，而且还有<strong>NestJS</strong>
               作为后端的开发框架，对于个人而言已经足够了...
             </p>
             <p className="mt-2">

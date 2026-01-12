@@ -16,13 +16,14 @@ const posts = defineCollection({
     title: z.string(),
     summary: z.string(),
     tags: z.array(z.string()),
+    content: z.string(),
   }),
   transform: async (doc, ctx) => {
     const file = await stat(resolve(process.cwd(), 'contents/posts', doc._meta.filePath));
     const mdx = await compileMDX(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
-        rehypeSlug,
+        [rehypeSlug, { prefix: 'iamcola-' }],
         [
           rehypePrettyCode,
           {
@@ -51,6 +52,7 @@ const daily = defineCollection({
   schema: z.object({
     title: z.string(),
     weather: z.string(),
+    content: z.string(),
   }),
   transform: async (doc, ctx) => {
     const filePath = resolve(process.cwd(), 'contents/daily', doc._meta.filePath);
@@ -59,7 +61,7 @@ const daily = defineCollection({
     const mdx = await compileMDX(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
-        rehypeSlug,
+        [rehypeSlug, { prefix: 'heading-' }],
         [
           rehypePrettyCode,
           {

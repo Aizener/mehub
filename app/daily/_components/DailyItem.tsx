@@ -3,7 +3,7 @@
 import { type Daily } from '@/.content-collections/generated';
 import Link from '@/components/mdx/Link';
 import { useIsDesktop } from '@/lib/useMediaQuery';
-import { cn } from '@/lib/utils';
+import { cn, throttle } from '@/lib/utils';
 import { getWeatherIcon } from '@/lib/weather';
 import { MDXContent } from '@content-collections/mdx/react';
 import { motion } from 'framer-motion';
@@ -53,9 +53,14 @@ export default function DailyItem({ daily }: DailyItemProps) {
       checkOverflow();
     });
 
-    // 监听窗口大小变化
-    window.addEventListener('resize', checkOverflow);
-    return () => window.removeEventListener('resize', checkOverflow);
+    // 使用节流函数限制 resize 事件执行频率（每 150ms 最多执行一次）
+    const throttledCheckOverflow = throttle(checkOverflow, 150);
+
+    // 监听窗口大小变化（使用节流）
+    window.addEventListener('resize', throttledCheckOverflow);
+    return () => {
+      window.removeEventListener('resize', throttledCheckOverflow);
+    };
   }, [MAX_HEIGHT]);
 
   const toggleExpand = () => {
@@ -63,11 +68,12 @@ export default function DailyItem({ daily }: DailyItemProps) {
   };
 
   const animatedHeight = useMemo(() => {
+    const defaultHeight = MAX_HEIGHT * 0.5;
     if (isExpanded) {
-      return contentHeight ? contentHeight + 50 : MAX_HEIGHT * 0.5;
+      return contentHeight ? contentHeight + 50 : defaultHeight;
     }
-    return contentHeight ? Math.min(contentHeight + 36, MAX_HEIGHT) : MAX_HEIGHT * 0.5;
-  }, [isExpanded, contentHeight]);
+    return contentHeight ? Math.min(contentHeight + 36, MAX_HEIGHT) : defaultHeight;
+  }, [isExpanded, contentHeight, MAX_HEIGHT]);
 
   return (
     <div className="mb-2 flex flex-col gap-x-4 md:mb-4 md:flex-row md:items-start">
@@ -76,13 +82,15 @@ export default function DailyItem({ daily }: DailyItemProps) {
           <CalendarClock className="h-4 w-4 text-gray-700" />
           <span>{daily.date.toLocaleString()}</span>
         </div>
-        <div className="flex items-center gap-x-2 text-sm text-gray-700">
-          <WeatherIcon className="h-4 w-4 text-gray-700" />
-          <span>{daily.weather}</span>
-        </div>
-        <div className="flex items-center gap-x-2 text-sm text-gray-700">
-          <CalendarHeart className="h-4 w-4 text-gray-700" />
-          <span>{getWeekdayName(daily.weekday)}</span>
+        <div className="flex gap-x-4 md:flex-col md:gap-y-2">
+          <div className="flex items-center gap-x-2 text-sm text-gray-700">
+            <WeatherIcon className="h-4 w-4 text-gray-700" />
+            <span>{daily.weather}</span>
+          </div>
+          <div className="flex items-center gap-x-2 text-sm text-gray-700">
+            <CalendarHeart className="h-4 w-4 text-gray-700" />
+            <span>{getWeekdayName(daily.weekday)}</span>
+          </div>
         </div>
       </div>
       <div className="relative flex-1 border border-gray-200 shadow-sm md:rounded-md">
