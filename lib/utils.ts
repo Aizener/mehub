@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 /**
@@ -30,11 +30,14 @@ export function throttle<T extends (...args: any[]) => any>(
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-        lastExecTime = Date.now();
-        timeoutId = null;
-      }, delay - (currentTime - lastExecTime));
+      timeoutId = setTimeout(
+        () => {
+          func.apply(this, args);
+          lastExecTime = Date.now();
+          timeoutId = null;
+        },
+        delay - (currentTime - lastExecTime)
+      );
     }
   };
 }
@@ -60,4 +63,27 @@ export function debounce<T extends (...args: any[]) => any>(
       timeoutId = null;
     }, delay);
   };
+}
+
+/**
+ * 计算从指定开始时间到现在的运行时间
+ * @param startTime ISO 时间字符串，例如：'2026-01-13T00:00:00+08:00'
+ * @returns 包含天数、小时、分钟、秒数的对象
+ */
+export function calculateOnlineTime(startTime: string) {
+  const start = new Date(startTime);
+  const now = new Date();
+  const diff = now.getTime() - start.getTime();
+
+  // 如果开始时间在未来，返回全0
+  if (diff < 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  return { days, hours, minutes, seconds };
 }

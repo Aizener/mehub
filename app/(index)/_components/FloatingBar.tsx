@@ -4,9 +4,9 @@ import CardContent from '@/components/CardContent';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { getOnlineTime } from '@/lib/useOnlineTime';
+import { getOnlineTime, useOnlineTime } from '@/lib/useOnlineTime';
 import { BadgeCheckIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const searchPlatforms = [
   {
@@ -52,8 +52,13 @@ const searchPlatforms = [
 ];
 
 function FloatingBar() {
+  const [mounted, setMounted] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const { days } = getOnlineTime();
+  const { days, hours, minutes, seconds } = useOnlineTime();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs">
@@ -100,6 +105,7 @@ function FloatingBar() {
             placeholder="请输入后选择需要跳转的平台..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            clearable
           />
           <div className="text-foreground/80 flex flex-wrap items-center gap-2 text-xs">
             {searchPlatforms.map((item) => (
@@ -120,16 +126,18 @@ function FloatingBar() {
       <CardContent className="mt-2 space-y-1">
         <div className="flex items-center justify-between text-sm">
           <span>版本号</span>
-          <span>v0.0.1</span>
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <span>本站已运行</span>
-          <span>{`${days} 天`}</span>
+          <span>0.0.1</span>
         </div>
         <div className="flex items-center justify-between text-sm">
           <span>备案号</span>
-          <span>@蜀20260101</span>
+          <span>- -</span>
         </div>
+        {mounted && (
+          <div className="flex items-center justify-between text-sm">
+            <span>已运行</span>
+            <span>{`${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`}</span>
+          </div>
+        )}
       </CardContent>
     </div>
   );

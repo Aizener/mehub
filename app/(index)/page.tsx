@@ -72,7 +72,14 @@ async function HomePage() {
                 key={img}
                 className="relative h-12 w-12 overflow-hidden rounded-sm border shadow-sm"
               >
-                <Image fill src={`/imgs/tech/${img}`} alt={img} sizes="48px" />
+                <Image
+                  fill
+                  src={`/imgs/tech/${img}`}
+                  alt={img}
+                  sizes="48px"
+                  quality={100}
+                  className="object-contain"
+                />
               </div>
             ))}
           </div>
@@ -85,9 +92,10 @@ async function HomePage() {
           <div className="mt-4 text-sm">
             <p>其实我个人没啥好说的，不过作为一个个人网站，还是得说一说叭叭一下才对￣□￣｜｜...</p>
             <p className="mt-2">
-              毕业多年，从学校学习<strong>Java</strong>
-              开始，到后来尝试<strong>PHP开发</strong>
-              ，再到如今专注于前端/全栈开发。技术栈在不断变化，也在不断学习和探索中...
+              从学校学习<strong>Java</strong>
+              开始，因为大专学历找工作实在受限，有幸通过<strong>PHP开发</strong>入行 ，到如今专注于
+              <strong>前端/全栈开发</strong>
+              。技术栈在不断变化，也在不断学习和探索中...
             </p>
             <p className="mt-2">
               目前的话，个人还是比较倾向于基于
