@@ -1,11 +1,11 @@
 import { type Daily, allDailies } from '@/.content-collections/generated';
 import { Post, allPosts } from '@/.content-collections/generated';
 
-const getContents = <T extends { _meta: { directory: string } }>(
+const getContents = <T extends { _meta: { directory: string }; date: Date }>(
   contents: T[]
 ): Record<string, T[]> => {
   const sorted = [...contents].sort(
-    (a, b) => new Date(b._meta.directory).getTime() - new Date(a._meta.directory).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   const result: Record<string, T[]> = {};
   for (const content of sorted) {

@@ -12,7 +12,7 @@ export default function Link({
   className?: string;
 }>) {
   return (
-    <a href={href} target={target} className={cn('mx-1 text-blue-500 underline', className)}>
+    <a href={href} target={target} className={cn('mx-1 text-green-600 underline', className)}>
       {children}
     </a>
   );
