@@ -2,6 +2,7 @@ import { readFile, stat } from 'fs/promises';
 import { resolve } from 'path';
 
 import { defineCollection, defineConfig } from '@content-collections/core';
+import { compileMarkdown } from '@content-collections/markdown';
 import { compileMDX } from '@content-collections/mdx';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
@@ -20,7 +21,7 @@ const posts = defineCollection({
   }),
   transform: async (doc, ctx) => {
     const file = await stat(resolve(process.cwd(), 'contents/posts', doc._meta.filePath));
-    const mdx = await compileMDX(ctx, doc, {
+    const html = await compileMarkdown(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
         [rehypeSlug, { prefix: 'iamcola-' }],
@@ -39,7 +40,7 @@ const posts = defineCollection({
     });
     return {
       ...doc,
-      mdx,
+      html,
       date: file.birthtime,
     };
   },

@@ -128,7 +128,8 @@ function PostDisplay({ post }: { post: Post }) {
         <TagAndDate tags={post.tags} date={post.date} />
       </div>
       <article className="prose py-4" ref={ref}>
-        <MDXContent code={post.mdx} />
+        {/* <MDXContent code={post.mdx} /> */}
+        <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
       </article>
       {mounted && toc.length > 0 && isMobile && (
         <>

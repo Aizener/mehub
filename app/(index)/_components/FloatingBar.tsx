@@ -4,7 +4,8 @@ import CardContent from '@/components/CardContent';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { getOnlineTime, useOnlineTime } from '@/lib/useOnlineTime';
+import { siteConfig } from '@/config/site.config';
+import { useOnlineTime } from '@/lib/useOnlineTime';
 import { BadgeCheckIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -126,11 +127,11 @@ function FloatingBar() {
       <CardContent className="mt-2 space-y-1">
         <div className="flex items-center justify-between text-sm">
           <span>版本号</span>
-          <span>0.0.1</span>
+          <span>{siteConfig.version}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
           <span>备案号</span>
-          <span>- -</span>
+          <span>{siteConfig.recordNumber}</span>
         </div>
         {mounted && (
           <div className="flex items-center justify-between text-sm">
