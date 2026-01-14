@@ -340,7 +340,7 @@ export default function Error({
   return (
     <div>
       <h2>出错了！</h2>
-      <button onClick={() => reset()}>重试</button>
+      <button onClick={() => {/* reset */}}>重试</button>
     </div>
   );
 }
@@ -416,7 +416,7 @@ export default LayoutB;
 // @top/(..)pageA/page.tsx
 function PageA() {
   return (
-    <div className="fixed top-1/2 left-1/2 aspect-[3/2] w-lg -translate-1/2 rounded-md border border-gray-100 bg-white p-3 shadow-md">
+    <div className="fixed top-1/2 left-1/2 aspect-3/2 w-lg -translate-1/2 rounded-md border border-gray-100 bg-white p-3 shadow-md">
       PageA
     </div>
   );

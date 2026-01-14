@@ -23,6 +23,7 @@ const posts = defineCollection({
     const mdx = await compileMDX(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
+        [rehypeSlug, { prefix: 'iamcola-' }],
         [
           rehypePrettyCode,
           {
@@ -34,7 +35,6 @@ const posts = defineCollection({
             keepBackground: false,
           },
         ],
-        [rehypeSlug, { prefix: 'iamcola-' }],
       ],
     });
     return {
