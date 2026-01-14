@@ -14,7 +14,6 @@ export const generateMetadata = async () => {
 };
 
 const posts = getAllPosts();
-console.log(posts);
 function BlogPage() {
   return (
     <div className="w-full px-2 md:px-0">

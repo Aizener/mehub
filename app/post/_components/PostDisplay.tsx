@@ -32,7 +32,6 @@ const CatalogList = ({
 }) => {
   const toPageTarget = (item: TocItem) => {
     const target = document.querySelector(`#${item.id}`);
-    console.log('item', item, target);
     if (!target) return;
 
     // 在 body fixed 状态下，使用保存的 scrollY 来计算目标位置
