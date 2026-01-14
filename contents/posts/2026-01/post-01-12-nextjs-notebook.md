@@ -328,9 +328,7 @@ app/
 错误页面即`error.tsx`是用于捕获和处理错误的页面。当页面或组件发生错误时，`next.js`会显示错误页面。错误页面必须是客户端组件，需要添加`'use client'`指令。
 
 ```tsx
-'use client';
-
-export default function Error({
+export function Error({
   error,
   reset,
 }: {
@@ -340,7 +338,7 @@ export default function Error({
   return (
     <div>
       <h2>出错了！</h2>
-      <button onClick={() => {/* reset */}}>重试</button>
+      <button onClick={() => reset()}>重试</button>
     </div>
   );
 }

@@ -77,7 +77,6 @@ async function HomePage() {
                   src={`/imgs/tech/${img}`}
                   alt={img}
                   sizes="48px"
-                  quality={100}
                   className="object-contain"
                 />
               </div>
