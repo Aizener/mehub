@@ -125,18 +125,18 @@ function FloatingBar() {
       </CardContent>
 
       <CardContent className="mt-2 space-y-1">
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center justify-between text-sm text-gray-700">
           <span>版本号</span>
           <span>{siteConfig.version}</span>
         </div>
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center justify-between text-sm text-gray-700">
           <span>备案号</span>
           <span>{siteConfig.recordNumber}</span>
         </div>
         {mounted && (
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-sm text-gray-700">
             <span>已运行</span>
-            <span>{`${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`}</span>
+            <span className="tracking-tighter">{`${days} 天 ${String(hours).padStart(2, '0')} 小时 ${String(minutes).padStart(2, '0')} 分钟 ${String(seconds).padStart(2, '0')} 秒`}</span>
           </div>
         )}
       </CardContent>

@@ -70,14 +70,16 @@ async function HomePage() {
             {imgs.map((img) => (
               <div
                 key={img}
-                className="relative h-12 w-12 overflow-hidden rounded-sm border shadow-sm"
+                className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-sm border shadow-sm"
               >
                 <Image
-                  fill
+                  width={48}
+                  height={48}
                   src={`/imgs/tech/${img}`}
                   alt={img}
-                  sizes="48px"
                   className="object-contain"
+                  quality={100}
+                  unoptimized
                 />
               </div>
             ))}
@@ -92,20 +94,19 @@ async function HomePage() {
             <p>其实我个人没啥好说的，不过作为一个个人网站，还是得说一说叭叭一下才对￣□￣｜｜...</p>
             <p className="mt-2">
               从学校学习<strong>Java</strong>
-              开始，因为大专学历找工作实在受限，有幸通过<strong>PHP开发</strong>入行 ，到如今专注于
-              <strong>前端/全栈开发</strong>
-              。技术栈在不断变化，也在不断学习和探索中...
+              开始，因为大专学历找工作实在受限，差点没找到工作，有幸通过
+              <strong>PHP开发</strong>入行 ，一直到如今开始从事
+              <strong>Web前端开发</strong>的工作，这期间也在不断学习和探索中...
             </p>
             <p className="mt-2">
-              目前的话，个人还是比较倾向于基于
+              目前的话，个人还是比较倾向于
               <strong>JS/TS全栈开发</strong>
-              。我很喜欢这门语言，语法是我的菜，而且还有<strong>NestJS</strong>
-              作为后端的开发框架，对于个人而言已经足够了...
+              。我很喜欢这门语言，语法是我的菜，而且有<strong>NestJS</strong>
+              能写后端服务，对于个人而言已经足够了！
             </p>
             <p className="mt-2">
               现在的目标：做合适的<strong>JavaScript前端或全栈工作</strong>
-              ，其他方向倒是对游戏开发还蛮感兴趣，<strong>Unity</strong>
-              是一个不错的方向（也尝试做过小游戏玩），不过那又是其他话题了...
+              ，其他方向倒是对游戏开发还蛮感兴趣，不过那又是其他话题了~
             </p>
           </div>
         </CardContent>

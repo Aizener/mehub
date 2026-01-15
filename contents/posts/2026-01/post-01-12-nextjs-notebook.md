@@ -1,6 +1,7 @@
 ---
 title: 全栈框架next.js入手指南
 summary: 作为基于react.js的全栈框架next.js在现在不可谓不热门，我个人也上手用了一段时间，体验上面来说还是不错的。所以在这里，给大家分享一下next.js的入手指南！
+date: 2026/01/12 21:35
 tags:
   - next.js
   - node.js
@@ -61,7 +62,7 @@ npx create-next-app@latest demo
 
 此时，可以看到界面询问我们创建`next.js`需要选择的功能，这个按个人需求来选择，选择完成后最终效果如下图：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-01.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/1.webp)
 
 此时，项目已经创建完毕，使用`VSCode`打开该项目。默认情况下，目录结构下的内容并不多，这里我们需要了解的是几个地方：
 
@@ -143,7 +144,7 @@ export default HelloPage;
 
 所以这里的`hello`目录名对应的路由即为`/hello`，此时访问`/hello`可以看到如下内容：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-02.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/2.webp)
 
 ### 动态路由
 
@@ -166,7 +167,7 @@ export default HelloPage;
 
 此时再访问`/hello/a`时，将会看到如下内容：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-03.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/3.webp)
 
 **如何匹配多层动态路由**
 
@@ -183,7 +184,7 @@ export default HelloPage;
 
 此时再访问`/hello/a/b/c`将会看到如下页面：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-04.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/4.webp)
 
 这里的`params`是固定的写法，与`searchParams`不同，通过`params`来获取的是动态路由上面的参数！
 
@@ -219,7 +220,7 @@ export default HelloPage;
 
 此时页面将会更新为：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-05.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/5.webp)
 
 ### 服务端渲染
 
@@ -393,7 +394,7 @@ export default LayoutB;
 
 其展示的页面如下：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-06.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/6.webp)
 
 对比写到一个`page.tsx`文件的好处就是，并行路由可以单独的写其他逻辑，例如`loading.tsx`和`not-found.tsx`等文件，甚至也可以在并行路由下创建新的路由。
 
@@ -460,7 +461,7 @@ export default LayoutB;
 
 点击**拦截路由**跳转时，页面效果如下：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-07.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/7.webp)
 
 **提示**
 
@@ -483,7 +484,7 @@ export default function middleware() {
 
 当刷新页面后，可以看到终端打印如下，打印了很多`'middleware'`语句：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-08.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/8.webp)
 
 这是因为`middleware`处理的不仅仅只是路由请求，还有其他资源请求，修改代码如下，再刷新页面可以看到：
 
@@ -496,7 +497,7 @@ export default function middleware(req: NextRequest) {
 }
 ```
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-09.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/9.webp)
 
 如果需要对指定路径进行处理的话，就需要使用匹配器，其使用方法如下：
 
@@ -515,7 +516,7 @@ export const config = {
 
 此时只有当请求路径为`/pageB`的路径才会被中间件处理，刷新页面后打印效果如下：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-10.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/10.webp)
 
 所以，通过中间件功能我们也可以实现鉴权等功能，例如：
 
@@ -565,7 +566,7 @@ export const GET = () => {
 
 上面的`GET`方法就表示为`/api/hello`的`Get`请求处理逻辑，其他请求类型写法也一样。此时，打开浏览器访问`http://localhost:3000/api/hello`，可以看到显示如下：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-11.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/11.webp)
 
 # 元数据
 
@@ -592,7 +593,7 @@ export default PageC;
 
 上面我们定义了`title`和`description`两个元数据，此时再看页面可以发现：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-12.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/12.webp)
 
 ## 动态元数据
 
@@ -630,7 +631,7 @@ export default PageC;
 
 此时在页面上可以看到动态添加的属性，如下图：
 
-![image.webp](/imgs/posts/2026-01/posts-01-12-nextjs-notebook/blog-12-13.webp)
+![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/13.webp)
 
 元数据的配置还有很多，具体可以看：[next.js元数据](https://nextjs.org/docs/app/api-reference/functions/generate-metadata)
 

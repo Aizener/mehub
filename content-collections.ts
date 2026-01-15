@@ -18,9 +18,9 @@ const posts = defineCollection({
     summary: z.string(),
     tags: z.array(z.string()),
     content: z.string(),
+    date: z.string(),
   }),
   transform: async (doc, ctx) => {
-    const file = await stat(resolve(process.cwd(), 'contents/posts', doc._meta.filePath));
     const html = await compileMarkdown(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
@@ -41,7 +41,6 @@ const posts = defineCollection({
     return {
       ...doc,
       html,
-      date: file.birthtime,
     };
   },
 });
@@ -54,11 +53,11 @@ const daily = defineCollection({
     title: z.string(),
     weather: z.string(),
     content: z.string(),
+    date: z.string(),
   }),
   transform: async (doc, ctx) => {
     const filePath = resolve(process.cwd(), 'contents/daily', doc._meta.filePath);
-    const file = await stat(filePath);
-    const weekday = new Date(file.birthtime).getDay();
+    const weekday = new Date(doc.date).getDay();
     const mdx = await compileMDX(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
@@ -81,7 +80,6 @@ const daily = defineCollection({
       mdx,
       weekday,
       content: await readFile(filePath, 'utf-8'),
-      date: file.birthtime,
     };
   },
 });
