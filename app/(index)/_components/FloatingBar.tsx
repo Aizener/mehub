@@ -127,7 +127,7 @@ function FloatingBar() {
       <CardContent className="mt-2 space-y-1">
         <div className="flex items-center justify-between text-sm text-gray-700">
           <span>版本号</span>
-          <span>{siteConfig.version}</span>
+          <span>v{process.env.NEXT_PUBLIC_APP_VERSION}</span>
         </div>
         <div className="flex items-center justify-between text-sm text-gray-700">
           <span>备案号</span>
