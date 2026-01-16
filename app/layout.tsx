@@ -1,3 +1,4 @@
+import UsePWA from '@/components/UsePWA';
 import Header from '@/components/layout/Header';
 import Main from '@/components/layout/Main';
 import type { Metadata } from 'next';
@@ -34,6 +35,7 @@ export default function RootLayout({
         </div>
         <div id="catalog-portal"></div>
       </body>
+      <UsePWA />
     </html>
   );
 }
