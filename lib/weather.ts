@@ -1,4 +1,4 @@
-import { Cloud, CloudHail, Haze, Rainbow, Snowflake, Sun, WindIcon } from 'lucide-react';
+import { Cloud, CloudHail, CloudSun, CloudSunRain, Haze, Rainbow, Snowflake, Sun, WindIcon } from 'lucide-react';
 
 export enum Weather {
   Sunny = '晴',
@@ -9,6 +9,8 @@ export enum Weather {
   Haze = '霾',
   Windy = '风',
   Thunder = '雷',
+  CloudyToSunny = '阴转晴',
+  RainyToSunny = '雨转晴',
 }
 
 // 天气值到枚举的映射（支持多种中文表达）
@@ -25,6 +27,10 @@ export const weatherValueMap: Record<string, Weather> = {
   霾: Weather.Haze,
   风: Weather.Windy,
   雷: Weather.Thunder,
+  阴转晴: Weather.CloudyToSunny,
+  阴天转晴: Weather.CloudyToSunny,
+  雨转晴: Weather.RainyToSunny,
+  雨天转晴: Weather.RainyToSunny,
 };
 
 export const weatherIconMap: Record<Weather, typeof Sun> = {
@@ -36,6 +42,8 @@ export const weatherIconMap: Record<Weather, typeof Sun> = {
   [Weather.Haze]: Rainbow,
   [Weather.Windy]: WindIcon,
   [Weather.Thunder]: Rainbow,
+  [Weather.CloudyToSunny]: CloudSun,
+  [Weather.RainyToSunny]: CloudSunRain,
 };
 
 // 根据天气字符串值获取图标

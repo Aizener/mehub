@@ -35,7 +35,7 @@ async function DailyPage() {
     <div>
       {Object.entries(dailies).map(([date, list]) => (
         <div key={date}>
-          <div className="sticky top-10 inline-flex w-full items-center justify-between bg-white/60 px-3 py-3 backdrop-blur-sm">
+          <div className="sticky top-10 inline-flex w-full items-center justify-between bg-background/50 px-3 py-3 backdrop-blur-xs z-30">
             <h1 className="font-[fantasy] text-2xl text-gray-300">{date.split('-')[0]}</h1>
             <h1 className="font-mono text-xl text-gray-500">{date.split('-')[1]}</h1>
           </div>

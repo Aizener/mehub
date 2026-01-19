@@ -1,6 +1,7 @@
 'use client';
 
 import { type Daily } from '@/.content-collections/generated';
+import Code from '@/components/mdx/Code';
 import Link from '@/components/mdx/Link';
 import { useIsDesktop } from '@/lib/useMediaQuery';
 import { cn, throttle } from '@/lib/utils';
@@ -9,6 +10,7 @@ import { MDXContent } from '@content-collections/mdx/react';
 import { motion } from 'framer-motion';
 import { CalendarClock, CalendarHeart } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
 
 const getWeekdayName = (weekday: number) => {
   const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
@@ -114,6 +116,8 @@ export default function DailyItem({ daily }: DailyItemProps) {
               components={{
                 p: (props) => <div {...props} className="text-sm text-gray-700" />,
                 Link,
+                Code,
+                Image
               }}
             />
           </div>
