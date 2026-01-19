@@ -1,15 +1,32 @@
 import CardContent from '@/components/CardContent';
 import TagAndDate from '@/components/post/TagAndDate';
+import { siteConfig } from '@/config/site.config';
 import { getAllPosts } from '@/lib/useContents';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export const generateMetadata = async () => {
   const title = "I'm Cola's Blog";
-  const description = "I'm Cola's Blog";
+  const description = 'Cola的个人博客，分享Web前端、全栈开发等技术文章';
+  const url = `${siteConfig.url}/blog`;
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: siteConfig.name,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 };
 

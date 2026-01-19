@@ -1,13 +1,30 @@
+import { siteConfig } from '@/config/site.config';
 import { getAllDailies } from '@/lib/useContents';
 
 import DailyItem from './_components/DailyItem';
 
 export const generateMetadata = async () => {
   const title = "I'm Cola's Daily";
-  const description = "I'm Cola's Daily";
+  const description = 'Cola的日常记录，记录生活点滴和技术思考';
+  const url = `${siteConfig.url}/daily`;
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: siteConfig.name,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 };
 

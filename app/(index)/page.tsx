@@ -1,6 +1,8 @@
 import CardContent from '@/components/CardContent';
 import { Separator } from '@/components/ui/separator';
+import { siteConfig } from '@/config/site.config';
 import Image from 'next/image';
+import Script from 'next/script';
 
 import FloatingBar from './_components/FloatingBar';
 
@@ -33,18 +35,57 @@ export const generateMetadata = async () => {
       'Web全栈',
       'JavaScript',
       'TypeScript',
-      'next.js',
-      'next.js',
-      'node.js',
-      'vue.js',
-      'react.js',
+      'Next.js',
+      'Node.js',
+      'Vue.js',
+      'React.js',
     ],
+    alternates: {
+      canonical: siteConfig.url,
+    },
+    openGraph: {
+      title,
+      description,
+      url: siteConfig.url,
+      siteName: siteConfig.name,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 };
 
 async function HomePage() {
+  // JSON-LD 结构化数据：帮助搜索引擎理解网站信息，提升 SEO
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    inLanguage: 'zh-CN',
+    author: {
+      '@type': 'Person',
+      name: siteConfig.author,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: siteConfig.author,
+    },
+    datePublished: siteConfig.startTime,
+  };
+
   return (
-    <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:gap-x-4 md:px-0 md:pt-0 lg:flex-row">
+    <>
+      <Script
+        id="website-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:gap-x-4 md:px-0 md:pt-0 lg:flex-row">
       <div className="order-2 w-full">
         <CardContent>
           <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
@@ -76,7 +117,7 @@ async function HomePage() {
                   width={48}
                   height={48}
                   src={`/imgs/tech/${img}`}
-                  alt={img}
+                  alt={img.replace('.png', '').toUpperCase() + ' 技术图标'}
                   className="object-contain"
                   quality={100}
                   unoptimized
@@ -169,6 +210,7 @@ async function HomePage() {
         <FloatingBar />
       </div>
     </div>
+    </>
   );
 }
 
