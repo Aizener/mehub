@@ -84,6 +84,26 @@ const daily = defineCollection({
   },
 });
 
+const notices = defineCollection({
+  name: 'notices',
+  directory: 'contents/notices',
+  include: '**/*.md',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    priority: z.enum(['low', 'medium', 'normal', 'high']).default('normal'),
+    tags: z.array(z.string()).optional().default([]),
+    content: z.string(),
+  }),
+  transform: async (doc, ctx) => {
+    const html = await compileMarkdown(ctx, doc);
+    return {
+      ...doc,
+      html,
+    };
+  },
+});
+
 export default defineConfig({
-  collections: [posts, daily],
+  collections: [posts, daily, notices],
 });

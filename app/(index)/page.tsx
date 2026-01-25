@@ -1,6 +1,7 @@
 import CardContent from '@/components/CardContent';
 import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/site.config';
+import { getAllNotices } from '@/lib/useContents';
 import Image from 'next/image';
 import Script from 'next/script';
 
@@ -151,59 +152,7 @@ async function HomePage() {
             </p>
           </div>
         </CardContent>
-        {/* <div className="bg-background/50 mt-6 rounded-md border p-3 shadow-sm">
-          <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
-            我的工具
-          </h1>
 
-          <div className="mt-4 text-sm">
-            <div className="flex gap-x-4 border-b border-dashed py-4">
-              <div className="relative h-16 w-16">
-                <Image fill alt="tools" src="/tools/cherry.png" className="object-cover" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-md font-bold">单词学习工具(部署于阿里云，最好别翻墙)</h2>
-                  <Link
-                    className="text-blue-500 underline"
-                    href="http://cherry.iamcola.cc/"
-                    target="_blank"
-                  >
-                    访问&gt;
-                  </Link>
-                </div>
-                <div className="mt-2">
-                  该网站是一款帮助学习单词的应用，可以记单词、查错词以及模拟小考试等，单词涵盖日常常用单词...
-                  <p className="mt-1 font-bold">技术相关：Nuxt.JS/Nest.JS/Prisma/Postgresql</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-x-4 border-b border-dashed py-4">
-              <div className="relative h-16 w-16">
-                <Image fill alt="tools" src="/tools/ai-expense.png" className="object-cover" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-md font-bold">AI消费管理(部署于Vercel，需翻墙)</h2>
-                  <Link
-                    className="text-blue-500 underline"
-                    href="https://test3-cola-ai.vercel.app/"
-                    target="_blank"
-                  >
-                    访问&gt;
-                  </Link>
-                </div>
-                <div className="mt-2">
-                  该网站是一款基于AI的消费记录与分析的SAAS应用...
-                  <p className="mt-1 font-bold">
-                    技术相关：Next.JS/Prisma/Postgresql/OpenRouter/Clerk
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
       <div className="relative flex-1">
         <div className="w-3xs"></div>

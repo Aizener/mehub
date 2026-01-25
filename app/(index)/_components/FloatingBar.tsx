@@ -3,11 +3,16 @@
 import CardContent from '@/components/CardContent';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import NoticeCard from './notice/NoticeCard';
+import NoticeDetailDrawer from './notice/NoticeDetailDrawer';
+import NoticeHistoryDrawer from './notice/NoticeHistoryDrawer';
 import { siteConfig } from '@/config/site.config';
+import { getNotices, getAllNotices } from '@/lib/useContents';
 import { useOnlineTime } from '@/lib/useOnlineTime';
-import { BadgeCheckIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { BadgeCheckIcon, History } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 
 const searchPlatforms = [
   {
@@ -55,7 +60,17 @@ const searchPlatforms = [
 function FloatingBar() {
   const [mounted, setMounted] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [detailDrawerOpen, setDetailDrawerOpen] = useState(false);
+  const [historyDrawerOpen, setHistoryDrawerOpen] = useState(false);
   const { days, hours, minutes, seconds } = useOnlineTime();
+
+  // 使用 useMemo 缓存公告数据，避免每次渲染都重新计算
+  const latestNotice = useMemo(() => {
+    const notices = getNotices(1);
+    return notices.length > 0 ? notices[0] : null;
+  }, []);
+
+  const allNotices = useMemo(() => getAllNotices(), []);
 
   useEffect(() => {
     setMounted(true);
@@ -95,8 +110,34 @@ function FloatingBar() {
       </CardContent>
 
       <CardContent className="mt-2 shadow-sm">
-        <h1 className="text-center text-lg font-bold">公告栏</h1>
-        <div className="text-foreground/80 p-2 text-sm">小站还在建设中哦~</div>
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-lg font-bold flex-1">公告栏</h1>
+          <NoticeHistoryDrawer
+            notices={allNotices}
+            open={historyDrawerOpen}
+            onOpenChange={setHistoryDrawerOpen}
+            trigger={
+              <Button variant="ghost" size="icon-sm" className="h-8 w-8 cursor-pointer">
+                <History className="h-4 w-4" />
+              </Button>
+            }
+          />
+        </div>
+        {latestNotice ? (
+          <>
+            <NoticeCard
+              notice={latestNotice}
+              onViewDetail={() => setDetailDrawerOpen(true)}
+            />
+            <NoticeDetailDrawer
+              notice={latestNotice}
+              open={detailDrawerOpen}
+              onOpenChange={setDetailDrawerOpen}
+            />
+          </>
+        ) : (
+          <div className="text-foreground/80 p-2 text-sm text-center">暂无公告</div>
+        )}
       </CardContent>
 
       <CardContent className="mt-2 hidden lg:block">
