@@ -36,14 +36,14 @@ const searchPlatforms = [
     path: (key: string) => `s?wd=${key}`,
   },
   {
-    name: '维基百科',
-    url: 'https://zh.wikipedia.org',
-    path: (key: string) => `wiki/${key}`,
-  },
-  {
     name: '谷歌',
     url: 'https://www.google.com',
     path: (key: string) => `search?q=${key}`,
+  },
+  {
+    name: 'Wiki',
+    url: 'https://zh.wikipedia.org',
+    path: (key: string) => `wiki/${key}`,
   },
   {
     name: 'GitHub',
@@ -51,7 +51,7 @@ const searchPlatforms = [
     path: (key: string) => `search?q=${key}&type=repositories`,
   },
   {
-    name: 'npm',
+    name: 'NPM',
     url: 'https://www.npmjs.com',
     path: (key: string) => `search?q=${key}`,
   },
@@ -110,7 +110,7 @@ function FloatingBar() {
       </CardContent>
 
       <CardContent className="mt-2 shadow-sm">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-0">
           <h1 className="text-lg font-bold flex-1">公告栏</h1>
           <NoticeHistoryDrawer
             notices={allNotices}

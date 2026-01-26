@@ -25,7 +25,7 @@ export const getPreviewText = (content: string, maxLength: number = 100): string
 export default function NoticeCard({ notice, onViewDetail }: NoticeCardProps) {
   return (
     <div className="space-y-2">
-      <div className="text-foreground/80 p-2 text-sm">
+      <div className="text-foreground/80 p-2 px-1 text-sm">
         <div className="font-semibold mb-1">{notice.title}</div>
         <div className="line-clamp-3">{getPreviewText(notice.content, 120)}</div>
       </div>
