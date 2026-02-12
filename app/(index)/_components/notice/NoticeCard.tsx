@@ -1,8 +1,8 @@
 'use client';
 
-import { type Notice } from '@/lib/useContents';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { type Notice } from '@/lib/useContents';
 import { ChevronRight } from 'lucide-react';
 
 type NoticeCardProps = {
@@ -26,12 +26,12 @@ export default function NoticeCard({ notice, onViewDetail }: NoticeCardProps) {
   return (
     <div className="space-y-2">
       <div className="text-foreground/80 p-2 px-1 text-sm">
-        <div className="font-semibold mb-1">{notice.title}</div>
-        <div className="line-clamp-3">{getPreviewText(notice.content, 120)}</div>
+        {/* <div className="mb-1 font-semibold">{notice.title}</div> */}
+        <div className="line-clamp-2">{getPreviewText(notice.content, 120)}</div>
       </div>
       <Button variant="outline" size="sm" className="w-full cursor-pointer" onClick={onViewDetail}>
         查看详情
-        <ChevronRight className="h-4 w-4 ml-1" />
+        <ChevronRight className="ml-1 h-4 w-4" />
       </Button>
     </div>
   );

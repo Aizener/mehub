@@ -100,8 +100,8 @@ function FloatingBar() {
   }, []);
 
   return (
-    <div className="order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs">
-      <CardContent className="flex items-center gap-x-3">
+    <div className="custom-scrollbar order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs">
+      <CardContent className="bg-background/50 flex items-center gap-x-3 backdrop-blur-sm md:sticky md:top-0">
         <Avatar className="size-10 border border-gray-200 p-0.5">
           <AvatarImage src="/imgs/avatar.jpg" alt="@shadcn" className="rounded-full" />
           <AvatarFallback>Cola</AvatarFallback>
@@ -134,7 +134,7 @@ function FloatingBar() {
 
       <CardContent className="mt-2 shadow-sm">
         <div className="mb-0 flex items-center justify-between">
-          <h1 className="flex-1 text-lg font-bold">公告栏</h1>
+          <h1 className="text-md flex-1 font-bold">公告栏</h1>
           <NoticeHistoryDrawer
             notices={allNotices}
             open={historyDrawerOpen}
@@ -162,7 +162,7 @@ function FloatingBar() {
 
       <CardContent className="mt-2 shadow-sm">
         <div className="relative w-full">
-          {!imageLoaded && <Skeleton className="aspect-3/2 w-full rounded-sm" />}
+          {!imageLoaded && <Skeleton className="aspect-4/3 w-full rounded-sm" />}
           <Image
             className={`h-auto w-full rounded-sm ${imageLoaded ? 'block' : 'hidden'}`}
             src="/imgs/left-logo.png"
@@ -177,8 +177,8 @@ function FloatingBar() {
         </div>
       </CardContent>
 
-      <CardContent className="mt-2 hidden lg:block">
-        <h1 className="text-center text-lg font-bold">便捷搜索</h1>
+      <CardContent className="mt-2 hidden md:block">
+        <h1 className="text-md text-center font-bold">便捷搜索</h1>
         <div className="flex flex-col gap-y-2 py-2">
           <Input
             placeholder="请输入后选择需要跳转的平台..."
