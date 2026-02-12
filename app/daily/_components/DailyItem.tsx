@@ -9,8 +9,8 @@ import { getWeatherIcon } from '@/lib/weather';
 import { MDXContent } from '@content-collections/mdx/react';
 import { motion } from 'framer-motion';
 import { CalendarClock, CalendarHeart } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const getWeekdayName = (weekday: number) => {
   const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
@@ -72,9 +72,9 @@ export default function DailyItem({ daily }: DailyItemProps) {
   const animatedHeight = useMemo(() => {
     const defaultHeight = MAX_HEIGHT * 0.5;
     if (isExpanded) {
-      return contentHeight ? contentHeight + 50 : defaultHeight;
+      return contentHeight ? contentHeight + 20 : defaultHeight;
     }
-    return contentHeight ? Math.min(contentHeight + 36, MAX_HEIGHT) : defaultHeight;
+    return contentHeight ? Math.min(contentHeight, MAX_HEIGHT) : defaultHeight;
   }, [isExpanded, contentHeight, MAX_HEIGHT]);
 
   return (
@@ -95,7 +95,7 @@ export default function DailyItem({ daily }: DailyItemProps) {
           </div>
         </div>
       </div>
-      <div className="relative flex-1 border border-gray-200 shadow-sm md:rounded-md">
+      <div className="relative flex-1 overflow-hidden border border-gray-200 shadow-sm md:rounded-md">
         <motion.div
           initial={false}
           animate={{
@@ -108,7 +108,7 @@ export default function DailyItem({ daily }: DailyItemProps) {
           style={{
             overflow: 'hidden',
           }}
-          className="p-4"
+          className="p-0"
         >
           <div ref={contentRef}>
             <MDXContent
@@ -117,7 +117,7 @@ export default function DailyItem({ daily }: DailyItemProps) {
                 p: (props) => <div {...props} className="text-sm text-gray-700" />,
                 Link,
                 Code,
-                Image
+                Image,
               }}
             />
           </div>

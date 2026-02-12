@@ -86,79 +86,80 @@ async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:gap-x-4 md:px-0 md:pt-0 lg:flex-row">
-      <div className="order-2 w-full">
-        <CardContent>
-          <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
-            小站介绍
-          </h1>
-          <div className="mt-4 text-sm">
-            <p>哈喽，欢迎来此小站的朋友~</p>
-            <p className="mt-1 break-all">
-              这个小站是我记录<strong>Web全栈开发</strong>
-              的一个小角落，编程语言主要是<strong>JavaScript(TypeScript)</strong>
-              ，我喜欢它们，也一直在学习中...或许也会分享其他的内容。
-            </p>
-          </div>
-        </CardContent>
+      <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:flex-row md:gap-x-4 md:px-0 md:pt-0">
+        <div className="order-2 w-full">
+          <CardContent>
+            <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
+              小站介绍
+            </h1>
+            <div className="mt-4 text-sm">
+              <p>哈喽，欢迎来此小站的朋友~</p>
+              <p className="mt-1 break-all">
+                这个小站是我记录<strong>Web全栈开发</strong>
+                的一个小角落，编程语言主要是<strong>JavaScript(TypeScript)</strong>
+                ，我喜欢它们，也一直在学习中...或许也会分享其他的内容。
+              </p>
+            </div>
+          </CardContent>
 
-        <div className="mt-2 flex flex-col">
-          <h2 className="my-4 flex items-center gap-x-2 overflow-hidden">
-            <Separator className="flex-1" />
-            <span className="font-bold">常用的技术/工具</span>
-            <Separator className="flex-1" />
-          </h2>
-          <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
-            {imgs.map((img) => (
-              <div
-                key={img}
-                className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-sm border shadow-sm"
-              >
-                <Image
-                  width={48}
-                  height={48}
-                  src={`/imgs/tech/${img}`}
-                  alt={img.replace('.png', '').toUpperCase() + ' 技术图标'}
-                  className="object-contain"
-                  quality={100}
-                  unoptimized
-                />
-              </div>
-            ))}
+          <div className="mt-2 flex flex-col">
+            <h2 className="my-4 flex items-center gap-x-2 overflow-hidden">
+              <Separator className="flex-1" />
+              <span className="font-bold">常用的技术/工具</span>
+              <Separator className="flex-1" />
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
+              {imgs.map((img) => (
+                <div
+                  key={img}
+                  className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-sm border shadow-sm"
+                >
+                  <Image
+                    width={48}
+                    height={48}
+                    src={`/imgs/tech/${img}`}
+                    alt={img.replace('.png', '').toUpperCase() + ' 技术图标'}
+                    className="object-contain"
+                    quality={100}
+                    unoptimized
+                  />
+                </div>
+              ))}
+            </div>
           </div>
+          <CardContent className="my-6">
+            <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
+              关于我
+            </h1>
+
+            <div className="mt-4 text-sm">
+              <p>
+                其实我个人没啥好说的，不过作为一个个人网站，还是得说一说叭叭一下才对￣□￣｜｜...
+              </p>
+              <p className="mt-2">
+                从学校学习<strong>Java</strong>
+                开始，因为大专学历找工作实在受限，差点没找到工作，有幸通过
+                <strong>PHP开发</strong>入行 ，一直到如今开始从事
+                <strong>Web前端开发</strong>的工作，这期间也在不断学习和探索中...
+              </p>
+              <p className="mt-2">
+                目前的话，个人还是比较倾向于
+                <strong>JS/TS全栈开发</strong>
+                。我很喜欢这门语言，语法是我的菜，而且有<strong>NestJS</strong>
+                能写后端服务，对于个人而言已经足够了！
+              </p>
+              <p className="mt-2">
+                现在的目标：做合适的<strong>JavaScript前端或全栈工作</strong>
+                ，其他方向倒是对游戏开发还蛮感兴趣，不过那又是其他话题了~
+              </p>
+            </div>
+          </CardContent>
         </div>
-        <CardContent className="my-6">
-          <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">
-            关于我
-          </h1>
-
-          <div className="mt-4 text-sm">
-            <p>其实我个人没啥好说的，不过作为一个个人网站，还是得说一说叭叭一下才对￣□￣｜｜...</p>
-            <p className="mt-2">
-              从学校学习<strong>Java</strong>
-              开始，因为大专学历找工作实在受限，差点没找到工作，有幸通过
-              <strong>PHP开发</strong>入行 ，一直到如今开始从事
-              <strong>Web前端开发</strong>的工作，这期间也在不断学习和探索中...
-            </p>
-            <p className="mt-2">
-              目前的话，个人还是比较倾向于
-              <strong>JS/TS全栈开发</strong>
-              。我很喜欢这门语言，语法是我的菜，而且有<strong>NestJS</strong>
-              能写后端服务，对于个人而言已经足够了！
-            </p>
-            <p className="mt-2">
-              现在的目标：做合适的<strong>JavaScript前端或全栈工作</strong>
-              ，其他方向倒是对游戏开发还蛮感兴趣，不过那又是其他话题了~
-            </p>
-          </div>
-        </CardContent>
-
+        <div className="relative flex-1">
+          <div className="w-3xs"></div>
+          <FloatingBar />
+        </div>
       </div>
-      <div className="relative flex-1">
-        <div className="w-3xs"></div>
-        <FloatingBar />
-      </div>
-    </div>
     </>
   );
 }
