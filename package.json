@@ -1,6 +1,6 @@
 {
   "name": "me",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
