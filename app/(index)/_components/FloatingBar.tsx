@@ -5,14 +5,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
+import { siteConfig } from '@/config/site.config';
+import { getAllNotices, getNotices } from '@/lib/useContents';
+import { useOnlineTime } from '@/lib/useOnlineTime';
+import { BadgeCheckIcon, History } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
+
 import NoticeCard from './notice/NoticeCard';
 import NoticeDetailDrawer from './notice/NoticeDetailDrawer';
 import NoticeHistoryDrawer from './notice/NoticeHistoryDrawer';
-import { siteConfig } from '@/config/site.config';
-import { getNotices, getAllNotices } from '@/lib/useContents';
-import { useOnlineTime } from '@/lib/useOnlineTime';
-import { BadgeCheckIcon, History } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
 
 const searchPlatforms = [
   {
@@ -62,6 +65,7 @@ function FloatingBar() {
   const [searchText, setSearchText] = useState('');
   const [detailDrawerOpen, setDetailDrawerOpen] = useState(false);
   const [historyDrawerOpen, setHistoryDrawerOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const { days, hours, minutes, seconds } = useOnlineTime();
 
   // 使用 useMemo 缓存公告数据，避免每次渲染都重新计算
@@ -74,6 +78,25 @@ function FloatingBar() {
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // 检查图片是否已经加载完成（处理缓存情况）
+  useEffect(() => {
+    const handleImageLoad = () => {
+      setImageLoaded(true);
+    };
+
+    const img = new window.Image();
+    img.src = '/imgs/left-logo.png';
+
+    if (img.complete || img.naturalWidth > 0) {
+      // 图片已经缓存，立即设置为已加载
+      handleImageLoad();
+    } else {
+      // 图片未缓存，等待加载完成
+      img.onload = handleImageLoad;
+      img.onerror = handleImageLoad; // 即使加载失败也隐藏骨架屏
+    }
   }, []);
 
   return (
@@ -110,8 +133,8 @@ function FloatingBar() {
       </CardContent>
 
       <CardContent className="mt-2 shadow-sm">
-        <div className="flex items-center justify-between mb-0">
-          <h1 className="text-lg font-bold flex-1">公告栏</h1>
+        <div className="mb-0 flex items-center justify-between">
+          <h1 className="flex-1 text-lg font-bold">公告栏</h1>
           <NoticeHistoryDrawer
             notices={allNotices}
             open={historyDrawerOpen}
@@ -125,10 +148,7 @@ function FloatingBar() {
         </div>
         {latestNotice ? (
           <>
-            <NoticeCard
-              notice={latestNotice}
-              onViewDetail={() => setDetailDrawerOpen(true)}
-            />
+            <NoticeCard notice={latestNotice} onViewDetail={() => setDetailDrawerOpen(true)} />
             <NoticeDetailDrawer
               notice={latestNotice}
               open={detailDrawerOpen}
@@ -136,8 +156,25 @@ function FloatingBar() {
             />
           </>
         ) : (
-          <div className="text-foreground/80 p-2 text-sm text-center">暂无公告</div>
+          <div className="text-foreground/80 p-2 text-center text-sm">暂无公告</div>
         )}
+      </CardContent>
+
+      <CardContent className="mt-2 shadow-sm">
+        <div className="relative w-full">
+          {!imageLoaded && <Skeleton className="aspect-3/2 w-full rounded-sm" />}
+          <Image
+            className={`h-auto w-full rounded-sm ${imageLoaded ? 'block' : 'hidden'}`}
+            src="/imgs/left-logo.png"
+            alt="avatar"
+            loading="eager"
+            width={256}
+            height={256}
+            quality={100}
+            unoptimized
+            onLoad={() => setImageLoaded(true)}
+          />
+        </div>
       </CardContent>
 
       <CardContent className="mt-2 hidden lg:block">
