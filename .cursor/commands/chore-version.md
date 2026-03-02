@@ -83,13 +83,13 @@
 提交信息格式为：
 
 ```
-chore(release): bump version to v新版本号
+chore(release): 版本号更新至 新版本号
 ```
 
 示例：
 
 ```
-chore(release): bump version to v0.3.6
+chore(release): 版本号更新至 新版本号
 ```
 
 或：
@@ -97,3 +97,5 @@ chore(release): bump version to v0.3.6
 ```
 chore(package): 版本号更新至 0.3.6
 ```
+
+如果涉及`major`或者`minor`此类版本号的更改，需要把`tag`的提交信息一起输出。
