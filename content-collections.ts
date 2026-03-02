@@ -12,7 +12,7 @@ import { z } from 'zod';
 const posts = defineCollection({
   name: 'posts',
   directory: 'contents/posts',
-  include: '**/*.md',
+  include: '**/*.mdx',
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -21,7 +21,7 @@ const posts = defineCollection({
     date: z.string(),
   }),
   transform: async (doc, ctx) => {
-    const html = await compileMarkdown(ctx, doc, {
+    const mdx = await compileMDX(ctx, doc, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
         [rehypeSlug, { prefix: 'iamcola-' }],
@@ -40,7 +40,7 @@ const posts = defineCollection({
     });
     return {
       ...doc,
-      html,
+      mdx,
     };
   },
 });

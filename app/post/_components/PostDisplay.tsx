@@ -1,6 +1,7 @@
 'use client';
 import { Post } from '@/.content-collections/generated';
 import TagAndDate from '@/components/post/TagAndDate';
+import Annotation from '@/components/mdx/Annotation';
 import { useIsMobile } from '@/lib/useMediaQuery';
 import { cn } from '@/lib/utils';
 import { MDXContent } from '@content-collections/mdx/react';
@@ -61,18 +62,29 @@ const CatalogList = ({
         <BookImage className="h-5 w-5" />
       </h1>
       <ul className="flex-1 overflow-y-auto pb-4">
-        {toc.map((item, idx) => (
-          <li
-            key={idx}
-            className={cn(
-              item.depth === 1 ? '' : 'ml-4',
-              'text-md line-clamp-1 cursor-pointer text-gray-700 select-none hover:underline'
-            )}
-            onClick={() => toPageTarget(item)}
-          >
-            {item.text}
-          </li>
-        ))}
+        {(() => {
+          let h1Count = 0;
+          let h2Count = 0;
+          return toc.map((item, idx) => {
+            const label = item.depth === 1 ? `${++h1Count}` : `${h1Count}.${++h2Count}`;
+            if (item.depth === 1) h2Count = 0;
+            return (
+              <li
+                key={idx}
+                className={cn(
+                  item.depth === 1 ? '' : 'ml-4',
+                  'text-md line-clamp-1 flex cursor-pointer items-center gap-2 text-gray-700 select-none hover:underline'
+                )}
+                onClick={() => toPageTarget(item)}
+              >
+                <span className="inline-flex h-5 min-w-5 shrink-0 items-center justify-center rounded bg-gray-200 px-1 text-xs font-medium text-gray-600">
+                  {label}
+                </span>
+                {item.text}
+              </li>
+            );
+          });
+        })()}
       </ul>
     </div>
   );
@@ -127,8 +139,13 @@ function PostDisplay({ post }: { post: Post }) {
         <TagAndDate tags={post.tags} date={post.date} />
       </div>
       <article className="prose py-4" ref={ref}>
-        {/* <MDXContent code={post.mdx} /> */}
-        <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
+        <MDXContent
+          code={post.mdx}
+          components={{
+            Annotation,
+          }}
+        />
+        {/* <div dangerouslySetInnerHTML={{ __html: post.html }}></div> */}
       </article>
       {mounted && toc.length > 0 && isMobile && (
         <>

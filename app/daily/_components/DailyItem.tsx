@@ -1,6 +1,7 @@
 'use client';
 
 import { type Daily } from '@/.content-collections/generated';
+import Annotation from '@/components/mdx/Annotation';
 import Code from '@/components/mdx/Code';
 import Link from '@/components/mdx/Link';
 import { useIsDesktop } from '@/lib/useMediaQuery';
@@ -115,6 +116,7 @@ export default function DailyItem({ daily }: DailyItemProps) {
               code={daily.mdx}
               components={{
                 p: (props) => <div {...props} className="text-sm text-gray-700" />,
+                Annotation,
                 Link,
                 Code,
                 Image,

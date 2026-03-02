@@ -3,7 +3,7 @@
   "version": "0.3.6",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname 0.0.0.0",
+    "dev": "next dev --hostname 0.0.0.0 --port 3596",
     "dev:https": "next dev --experimental-https --experimental-https-cert localhost+2.pem --experimental-https-key localhost+2-key.pem",
     "build": "next build",
     "start": "next start",
@@ -21,6 +21,7 @@
     "lucide-react": "^0.562.0",
     "motion": "^12.23.26",
     "next": "16.1.1",
+    "radix-ui": "^1.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "rehype-pretty-code": "^0.14.1",

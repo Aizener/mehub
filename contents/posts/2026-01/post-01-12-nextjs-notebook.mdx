@@ -473,11 +473,14 @@ export default LayoutB;
 
 ## 中间件
 
-在`next.js`中，中间件一般是用来做路由拦截、响应或者鉴权来使用的。通过在`src`或者根目录下创建文件`middleware.ts`来使用，并且需要默认导出一个函数，如下：
+在`next.js`中，中间件一般是用来做路由拦截、响应或者鉴权来使用的。通过在`src`或者根目录下创建文件<Annotation items={[{ note: '1. 从 Next.js 16 开始，中间件（Middleware）更名为代理（Proxy），以更好地体现其用途。其功能保持不变。' }, { note: '2. 详见：<a href="https://nextjs.org/docs/app/getting-started/proxy" target="_blank" style="color: #0070f3; text-decoration: underline;">next.js Proxy代理</a>' }]}>`middleware.ts` -> `proxy.ts`</Annotation>来使用，并且需要默认导出一个函数，如下：
 
 ```ts
-// src/middleware.ts
-export default function middleware() {
+// src/middleware.ts 改为 src/proxy.ts
+// export default function middleware() {
+//   console.log('middleware.');
+// }
+export default function proxy() {
   console.log('middleware.');
 }
 ```
@@ -486,13 +489,16 @@ export default function middleware() {
 
 ![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/8.webp)
 
-这是因为`middleware`处理的不仅仅只是路由请求，还有其他资源请求，修改代码如下，再刷新页面可以看到：
+这是因为 **~~middleware~~ -> proxy** 处理的不仅仅只是路由请求，还有其他资源请求，修改代码如下，再刷新页面可以看到：
 
 ```tsx
-// src/middleware.ts
+// src/middleware.ts 改为 src/proxy.ts
 import { NextRequest } from 'next/server';
 
-export default function middleware(req: NextRequest) {
+// export default function middleware(req: NextRequest) {
+//   console.log(req.url + ':middleware.');
+// }
+export default function proxy(req: NextRequest) {
   console.log(req.url + ':middleware.');
 }
 ```
@@ -502,10 +508,13 @@ export default function middleware(req: NextRequest) {
 如果需要对指定路径进行处理的话，就需要使用匹配器，其使用方法如下：
 
 ```ts
-// src/middleware.ts
+// src/middleware.ts 改为 src/proxy.ts
 import { NextRequest } from 'next/server';
 
-export default function middleware(req: NextRequest) {
+// export default function middleware(req: NextRequest) {
+//   console.log(req.url + ':middleware.');
+// }
+export default function proxy(req: NextRequest) {
   console.log(req.url + ':middleware.');
 }
 
@@ -514,28 +523,35 @@ export const config = {
 };
 ```
 
-此时只有当请求路径为`/pageB`的路径才会被中间件处理，刷新页面后打印效果如下：
+此时只有当请求路径为`/pageB`时才会被代理处理，刷新页面后打印效果如下：
 
 ![image.webp](/imgs/posts/2026-01/01-12-nextjs-notebook/10.webp)
 
-所以，通过中间件功能我们也可以实现鉴权等功能，例如：
+所以，通过代理功能我们也可以实现鉴权等功能，例如：
 
 ```ts
-// src/middleware.ts
+// src/middleware.ts 改为 src/proxy.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(req: NextRequest) {
+// export function middleware(req: NextRequest) {
+//   const token = req.cookies.get('token');
+//   if (!token) {
+//     return NextResponse.redirect(new URL('/login', req.url));
+//   }
+// }
+export function proxy(req: NextRequest) {
   const token = req.cookies.get('token');
   if (!token) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
+  return NextResponse.next();
 }
 
 export const config = { matcher: ['/dashboard/:path*'] };
 ```
 
-中间件的功能还是比较丰富的，就不一一赘述了，具体可以看文档：[next.js中间件](https://nextjs.org/docs/app/api-reference/file-conventions/middleware)
+**~~中间件~~ -> 代理** 的功能还是比较丰富的，就不一一赘述了，具体可以看文档：<Annotation items={[{ note: '1. 从 Next.js 16 开始，中间件（Middleware）更名为代理（Proxy），以更好地体现其用途。其功能保持不变。' }, { note: '2. 详见：<a href="https://nextjs.org/docs/app/getting-started/proxy" target="_blank" style="color: #0070f3; text-decoration: underline;">next.js Proxy代理</a>' }]}>[next.js 代理](https://nextjs.org/docs/app/getting-started/proxy)</Annotation>
 
 ## 服务端API
 

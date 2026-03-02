@@ -1,7 +1,7 @@
 import { withContentCollections } from '@content-collections/next';
 import type { NextConfig } from 'next';
 
-const pkg = require('./package.json');
+import pkg from './package.json';
 
 const nextConfig: NextConfig = {
   env: {
