@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { GithubIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -30,6 +31,15 @@ function Header() {
             {nav.title}
           </Link>
         ))}
+        <div className="h-4 w-px bg-gray-300" />
+        <Link
+          href="https://github.com/Aizener"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-700 hover:text-gray-950"
+        >
+          <GithubIcon className="h-5 w-5" />
+        </Link>
       </nav>
     </header>
   );
