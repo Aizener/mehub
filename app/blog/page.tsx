@@ -1,9 +1,10 @@
-import BlogContent, { type PostItem } from './_components/BlogContent';
 import { siteConfig } from '@/config/site.config';
 import { getAllPosts } from '@/lib/useContents';
 
+import BlogContent, { type PostItem } from './_components/BlogContent';
+
 export const generateMetadata = async () => {
-  const title = "I'm Cola's Blog";
+  const title = 'Blog';
   const description = 'Cola的个人博客，分享Web前端、全栈开发等技术文章';
   const url = `${siteConfig.url}/blog`;
   return {
@@ -44,9 +45,10 @@ function toPostItem(post: {
 }
 
 const posts = getAllPosts();
-const postsEntries: [string, PostItem[]][] = Object.entries(posts).map(
-  ([date, list]) => [date, list.map(toPostItem)]
-);
+const postsEntries: [string, PostItem[]][] = Object.entries(posts).map(([date, list]) => [
+  date,
+  list.map(toPostItem),
+]);
 
 function BlogPage() {
   return <BlogContent postsEntries={postsEntries} />;

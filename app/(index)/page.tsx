@@ -1,7 +1,6 @@
 import CardContent from '@/components/CardContent';
 import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/site.config';
-import { getAllNotices } from '@/lib/useContents';
 import Image from 'next/image';
 import Script from 'next/script';
 

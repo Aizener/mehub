@@ -1,10 +1,11 @@
+import { siteConfig } from '@/config/site.config';
 import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "I'm Cola.",
-    short_name: 'Cola',
-    description: 'A personal website about Cola.',
+    name: siteConfig.name,
+    short_name: siteConfig.author,
+    description: siteConfig.description,
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
