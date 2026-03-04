@@ -1,9 +1,10 @@
 'use client';
 
+import { ChevronRight } from 'lucide-react';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { type Notice } from '@/lib/useContents';
-import { ChevronRight } from 'lucide-react';
 
 type NoticeCardProps = {
   notice: Notice;

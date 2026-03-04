@@ -1,4 +1,11 @@
-import { type Daily, allDailies, Post, allPosts, type Notice, allNotices } from '@/.content-collections/generated';
+import {
+  type Daily,
+  type Notice,
+  Post,
+  allDailies,
+  allNotices,
+  allPosts,
+} from '@/.content-collections/generated';
 
 export type { Notice };
 
@@ -26,9 +33,7 @@ export const getAllPosts = () => {
 };
 
 export const getAllNotices = () => {
-  return [...allNotices].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  return [...allNotices].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 export const getNotices = (limit?: number) => {

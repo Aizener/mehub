@@ -1,7 +1,8 @@
-import { siteConfig } from '@/config/site.config';
-import { getAllPosts } from '@/lib/useContents';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
+
+import { siteConfig } from '@/config/site.config';
+import { getAllPosts } from '@/lib/useContents';
 
 import PostDisplay from '../_components/PostDisplay';
 

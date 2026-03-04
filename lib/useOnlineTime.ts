@@ -1,7 +1,8 @@
 'use client';
 
-import { siteConfig } from '@/config/site.config';
 import { useEffect, useState } from 'react';
+
+import { siteConfig } from '@/config/site.config';
 
 import { calculateOnlineTime } from './utils';
 

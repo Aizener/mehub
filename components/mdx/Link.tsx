@@ -1,5 +1,6 @@
-import { cn } from '@/lib/utils';
 import React, { HTMLAttributeAnchorTarget, PropsWithChildren } from 'react';
+
+import { cn } from '@/lib/utils';
 
 export default function Link({
   children,

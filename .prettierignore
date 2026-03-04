@@ -1,6 +1,10 @@
 .next/
+.cursor/
 node_modules/
+contents/
+public/
 package.json
 package-lock.json
 README.node_modules
-contents/
+AGENTS.md
+QWEN.md

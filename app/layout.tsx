@@ -1,10 +1,11 @@
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+
 import UsePWA from '@/components/UsePWA';
 import Header from '@/components/layout/Header';
 import Main from '@/components/layout/Main';
 import LenisProvider from '@/components/providers/LenisProvider';
 import { siteConfig } from '@/config/site.config';
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
 

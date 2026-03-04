@@ -1,7 +1,8 @@
 // app/sitemap.ts
+import { MetadataRoute } from 'next';
+
 import { siteConfig } from '@/config/site.config';
 import { getAllPosts } from '@/lib/useContents';
-import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();

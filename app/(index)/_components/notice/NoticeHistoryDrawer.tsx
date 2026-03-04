@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +15,6 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { type Notice } from '@/lib/useContents';
-import { useState } from 'react';
 
 import { getPreviewText } from './NoticeCard';
 import NoticeDetailDrawer from './NoticeDetailDrawer';

@@ -1,9 +1,10 @@
 'use client';
 
-import { useIsDesktop } from '@/lib/useMediaQuery';
 import { Lenis, useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+
+import { useIsDesktop } from '@/lib/useMediaQuery';
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

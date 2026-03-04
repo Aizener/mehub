@@ -1,15 +1,16 @@
 'use client';
-import { Post } from '@/.content-collections/generated';
-import Annotation from '@/components/mdx/Annotation';
-import TagAndDate from '@/components/post/TagAndDate';
-import { useIsMobile } from '@/lib/useMediaQuery';
-import { cn } from '@/lib/utils';
 import { MDXContent } from '@content-collections/mdx/react';
 import { useLenis } from 'lenis/react';
 import { BookImage } from 'lucide-react';
 import NProgress from 'nprogress';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+
+import { Post } from '@/.content-collections/generated';
+import Annotation from '@/components/mdx/Annotation';
+import TagAndDate from '@/components/post/TagAndDate';
+import { useIsMobile } from '@/lib/useMediaQuery';
+import { cn } from '@/lib/utils';
 
 type TocItem = { id: string; text: string; depth: number };
 type Toc = TocItem[];

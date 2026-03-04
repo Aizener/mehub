@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+
 import { type Notice } from '@/lib/useContents';
 
 type NoticeBoardProps = {
@@ -10,8 +11,8 @@ type NoticeBoardProps = {
 
 export default function NoticeBoard({ notices, maxNotices = 5 }: NoticeBoardProps) {
   // 按日期排序，最新的在前面
-  const sortedNotices = [...notices].sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
+  const sortedNotices = [...notices].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
   // 如果指定了最大显示数量，则只显示最新的几条
@@ -19,7 +20,7 @@ export default function NoticeBoard({ notices, maxNotices = 5 }: NoticeBoardProp
 
   return (
     <div className="notice-board">
-      <h2 className="text-xl font-bold mb-4 pb-2 border-b">公告栏</h2>
+      <h2 className="mb-4 border-b pb-2 text-xl font-bold">公告栏</h2>
 
       {displayedNotices.length === 0 ? (
         <p className="text-gray-500 italic">暂无公告</p>
@@ -28,7 +29,7 @@ export default function NoticeBoard({ notices, maxNotices = 5 }: NoticeBoardProp
           {displayedNotices.map((notice) => (
             <li
               key={notice._meta.path}
-              className={`p-4 rounded-lg border-l-4 ${
+              className={`rounded-lg border-l-4 p-4 ${
                 notice.priority === 'high'
                   ? 'border-red-500 bg-red-50'
                   : notice.priority === 'medium'
@@ -36,18 +37,21 @@ export default function NoticeBoard({ notices, maxNotices = 5 }: NoticeBoardProp
                     : 'border-blue-500 bg-blue-50'
               }`}
             >
-              <div className="flex justify-between items-start">
-                <Link href={`/notices/${notice._meta.path.replace('.md', '')}`} className="font-semibold hover:underline">
+              <div className="flex items-start justify-between">
+                <Link
+                  href={`/notices/${notice._meta.path.replace('.md', '')}`}
+                  className="font-semibold hover:underline"
+                >
                   {notice.title}
                 </Link>
-                <span className="text-sm text-gray-500 ml-2">{notice.date}</span>
+                <span className="ml-2 text-sm text-gray-500">{notice.date}</span>
               </div>
 
               <div className="mt-2 flex flex-wrap gap-2">
                 {notice.tags?.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-block px-2 py-1 text-xs bg-gray-200 rounded-full"
+                    className="inline-block rounded-full bg-gray-200 px-2 py-1 text-xs"
                   >
                     {tag}
                   </span>

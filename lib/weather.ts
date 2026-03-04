@@ -1,4 +1,14 @@
-import { Cloud, CloudHail, CloudSun, CloudSunRain, Haze, Rainbow, Snowflake, Sun, WindIcon } from 'lucide-react';
+import {
+  Cloud,
+  CloudHail,
+  CloudSun,
+  CloudSunRain,
+  Haze,
+  Rainbow,
+  Snowflake,
+  Sun,
+  WindIcon,
+} from 'lucide-react';
 
 export enum Weather {
   Sunny = '晴',

@@ -1,5 +1,7 @@
 'use client';
 
+import { memo } from 'react';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,7 +14,6 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { type Notice } from '@/lib/useContents';
-import { memo } from 'react';
 
 type NoticeDetailDrawerProps = {
   notice: Notice;

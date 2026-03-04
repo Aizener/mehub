@@ -1,9 +1,10 @@
 'use client';
 
+import { PropsWithChildren, useRef, useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { PropsWithChildren, useRef, useState } from 'react';
 
 export type AnnotationItem = {
   note: string;
