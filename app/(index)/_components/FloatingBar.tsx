@@ -77,7 +77,7 @@ function FloatingBar() {
   const allNotices = useMemo(() => getAllNotices(), []);
 
   useEffect(() => {
-    setMounted(true);
+    queueMicrotask(() => setMounted(true));
   }, []);
 
   // 检查图片是否已经加载完成（处理缓存情况）
@@ -100,7 +100,10 @@ function FloatingBar() {
   }, []);
 
   return (
-    <div className="custom-scrollbar order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs">
+    <div
+      className="custom-scrollbar order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs"
+      data-lenis-prevent
+    >
       <CardContent className="bg-background/50 flex items-center gap-x-3 backdrop-blur-sm md:sticky md:top-0">
         <Avatar className="size-10 border border-gray-200 p-0.5">
           <AvatarImage src="/imgs/avatar.jpg" alt="@shadcn" className="rounded-full" />

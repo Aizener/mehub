@@ -1,6 +1,7 @@
 import UsePWA from '@/components/UsePWA';
 import Header from '@/components/layout/Header';
 import Main from '@/components/layout/Main';
+import LenisProvider from '@/components/providers/LenisProvider';
 import { siteConfig } from '@/config/site.config';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -64,11 +65,13 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div id="app" className="mx-auto max-w-3xl">
-          <Header />
-          <Main>{children}</Main>
-        </div>
-        <div id="catalog-portal"></div>
+        <LenisProvider>
+          <div id="app" className="mx-auto max-w-3xl">
+            <Header />
+            <Main>{children}</Main>
+          </div>
+          <div id="catalog-portal"></div>
+        </LenisProvider>
       </body>
       <UsePWA />
     </html>

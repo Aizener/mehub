@@ -1,11 +1,13 @@
 'use client';
 import { Post } from '@/.content-collections/generated';
-import TagAndDate from '@/components/post/TagAndDate';
 import Annotation from '@/components/mdx/Annotation';
+import TagAndDate from '@/components/post/TagAndDate';
 import { useIsMobile } from '@/lib/useMediaQuery';
 import { cn } from '@/lib/utils';
 import { MDXContent } from '@content-collections/mdx/react';
+import { useLenis } from 'lenis/react';
 import { BookImage } from 'lucide-react';
+import NProgress from 'nprogress';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -92,7 +94,10 @@ const CatalogList = ({
 
 const CatelogModal = ({ toc }: { toc: Toc }) => {
   return createPortal(
-    <div className="fixed top-4 left-[calc(48rem+(100%-48rem)*0.5)] hidden translate-x-4 rounded-sm border border-gray-200 p-3 shadow-sm md:flex md:w-52 md:flex-col">
+    <div
+      className="fixed top-4 left-[calc(48rem+(100%-48rem)*0.5)] hidden translate-x-4 rounded-sm border border-gray-200 p-3 shadow-sm md:flex md:w-52 md:flex-col"
+      data-lenis-prevent
+    >
       <CatalogList toc={toc} />
     </div>,
     document.querySelector('#catalog-portal')!
@@ -113,6 +118,37 @@ function PostDisplay({ post }: { post: Post }) {
     setToc(toc);
     setMounted(true);
   }, []);
+
+  // 文章阅读进度：基于文章容器计算，顶部 0%，底部 100%
+  useEffect(() => {
+    NProgress.configure({
+      showSpinner: false,
+      trickle: false,
+      minimum: 0,
+      speed: 80,
+      easing: 'linear',
+    });
+    NProgress.set(0);
+    return () => NProgress.remove();
+  }, []);
+
+  useLenis((lenis) => {
+    const article = ref.current;
+    if (!article) return;
+
+    // 文章顶部在文档中的位置 = 视口内位置 + 当前滚动量
+    const articleTop = article.getBoundingClientRect().top + lenis.scroll;
+    const articleHeight = article.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    // 文章可滚动总距离（文章高度超出视口的部分）
+    const maxScroll = Math.max(articleHeight - viewportHeight, 0);
+    // 已在文章内滚动的距离
+    const scrollWithinArticle = Math.max(0, lenis.scroll - articleTop);
+    // 进度 0~0.999，避免设为 1 触发 nprogress 的淡出移除
+    const progress = maxScroll > 0 ? Math.min(scrollWithinArticle / maxScroll, 0.999) : 0.999;
+
+    NProgress.set(progress);
+  });
 
   // 当移动端目录框打开时，阻止body滚动
   useEffect(() => {

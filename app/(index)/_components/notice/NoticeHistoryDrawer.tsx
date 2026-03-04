@@ -1,6 +1,5 @@
 'use client';
 
-import { type Notice } from '@/lib/useContents';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,9 +12,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { type Notice } from '@/lib/useContents';
 import { useState } from 'react';
-import NoticeDetailDrawer from './NoticeDetailDrawer';
+
 import { getPreviewText } from './NoticeCard';
+import NoticeDetailDrawer from './NoticeDetailDrawer';
 
 type NoticeHistoryDrawerProps = {
   notices: Notice[];
@@ -60,28 +61,28 @@ export default function NoticeHistoryDrawer({
             <DrawerTitle>历史公告</DrawerTitle>
             <DrawerDescription>查看所有历史公告</DrawerDescription>
           </DrawerHeader>
-          <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto">
+          <div className="max-h-[60vh] overflow-y-auto px-4 pb-4">
             {notices.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">暂无公告</p>
+              <p className="text-muted-foreground py-8 text-center">暂无公告</p>
             ) : (
               <div className="space-y-4">
                 {notices.map((notice) => (
                   <div
                     key={notice._meta.path}
                     onClick={() => handleNoticeClick(notice)}
-                    className={`p-4 rounded-lg border-l-4 cursor-pointer transition-colors hover:bg-opacity-80 ${getPriorityBorderClass(notice.priority)}`}
+                    className={`hover:bg-opacity-80 cursor-pointer rounded-lg border-l-4 p-4 transition-colors ${getPriorityBorderClass(notice.priority)}`}
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-base">{notice.title}</h3>
-                      <span className="text-xs text-muted-foreground ml-2 whitespace-nowrap">
+                    <div className="mb-2 flex items-start justify-between">
+                      <h3 className="text-base font-semibold">{notice.title}</h3>
+                      <span className="text-muted-foreground ml-2 text-xs whitespace-nowrap">
                         {notice.date}
                       </span>
                     </div>
-                    <div className="text-sm text-muted-foreground mb-2">
+                    <div className="text-muted-foreground mb-2 text-sm">
                       {getPreviewText(notice.content, 150)}
                     </div>
                     {notice.tags && notice.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-2">
+                      <div className="mt-2 flex flex-wrap gap-2">
                         {notice.tags.map((tag) => (
                           <Badge key={tag} variant="secondary" className="text-xs">
                             {tag}
@@ -96,7 +97,9 @@ export default function NoticeHistoryDrawer({
           </div>
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant="outline" className='cursor-pointer'>关闭</Button>
+              <Button variant="outline" className="cursor-pointer">
+                关闭
+              </Button>
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>

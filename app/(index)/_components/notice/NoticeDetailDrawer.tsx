@@ -1,6 +1,5 @@
 'use client';
 
-import { type Notice } from '@/lib/useContents';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,6 +11,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer';
+import { type Notice } from '@/lib/useContents';
 import { memo } from 'react';
 
 type NoticeDetailDrawerProps = {
@@ -20,11 +20,7 @@ type NoticeDetailDrawerProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-function NoticeDetailDrawer({
-  notice,
-  open,
-  onOpenChange,
-}: NoticeDetailDrawerProps) {
+function NoticeDetailDrawer({ notice, open, onOpenChange }: NoticeDetailDrawerProps) {
   const getPriorityLabel = (priority: Notice['priority']) => {
     switch (priority) {
       case 'high':
@@ -58,20 +54,20 @@ function NoticeDetailDrawer({
       <DrawerContent direction="right">
         <DrawerHeader>
           <DrawerTitle>{notice.title}</DrawerTitle>
-          <DrawerDescription className="sr-only">
-            公告详情：{notice.title}
-          </DrawerDescription>
-          <div className="text-sm text-muted-foreground">
-            <div className="flex items-center justify-between mt-2">
+          <DrawerDescription className="sr-only">公告详情：{notice.title}</DrawerDescription>
+          <div className="text-muted-foreground text-sm">
+            <div className="mt-2 flex items-center justify-between">
               <time dateTime={notice.date} className="text-sm">
                 {notice.date}
               </time>
-              <span className={`px-2 py-1 rounded-full text-xs ${getPriorityClassName(notice.priority)}`}>
+              <span
+                className={`rounded-full px-2 py-1 text-xs ${getPriorityClassName(notice.priority)}`}
+              >
                 {getPriorityLabel(notice.priority)}
               </span>
             </div>
             {notice.tags && notice.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-3">
+              <div className="mt-3 flex flex-wrap gap-2">
                 {notice.tags.map((tag) => (
                   <Badge key={tag} variant="secondary" className="text-xs">
                     #{tag}
@@ -81,15 +77,17 @@ function NoticeDetailDrawer({
             )}
           </div>
         </DrawerHeader>
-        <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto">
+        <div className="max-h-[60vh] overflow-y-auto px-4 pb-4">
           <div
-            className="prose prose-sm max-w-none dark:prose-invert text-sm text-gray-800 select-text"
+            className="prose prose-sm dark:prose-invert max-w-none text-sm text-gray-800 select-text"
             dangerouslySetInnerHTML={{ __html: notice.html }}
           />
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline" className='cursor-pointer'>关闭</Button>
+            <Button variant="outline" className="cursor-pointer">
+              关闭
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

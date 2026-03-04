@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
+@import 'nprogress/nprogress.css';
 @import 'tw-animate-css';
 @import '../public/css/prose.css';
 @plugin 'tailwindcss-github-markdown';
