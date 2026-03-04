@@ -132,23 +132,41 @@ function PostDisplay({ post }: { post: Post }) {
     return () => NProgress.remove();
   }, []);
 
-  useLenis((lenis) => {
+  /**
+   * 根据当前滚动位置更新文章阅读进度（0% ~ 100%）
+   * 文章顶部进入视口为 0%，底部离开视口为 100%
+   */
+  const updateReadingProgress = (scrollY: number) => {
     const article = ref.current;
     if (!article) return;
-
-    // 文章顶部在文档中的位置 = 视口内位置 + 当前滚动量
-    const articleTop = article.getBoundingClientRect().top + lenis.scroll;
+    const rect = article.getBoundingClientRect();
+    // 文章顶部在文档中的位置 = 视口内偏移 + 当前滚动量
+    const articleTop = rect.top + scrollY;
     const articleHeight = article.offsetHeight;
     const viewportHeight = window.innerHeight;
     // 文章可滚动总距离（文章高度超出视口的部分）
     const maxScroll = Math.max(articleHeight - viewportHeight, 0);
     // 已在文章内滚动的距离
-    const scrollWithinArticle = Math.max(0, lenis.scroll - articleTop);
+    const scrollWithinArticle = Math.max(0, scrollY - articleTop);
     // 进度 0~0.999，避免设为 1 触发 nprogress 的淡出移除
     const progress = maxScroll > 0 ? Math.min(scrollWithinArticle / maxScroll, 0.999) : 0.999;
-
     NProgress.set(progress);
+  };
+
+  // 桌面端：Lenis 平滑滚动时同步更新阅读进度
+  useLenis((lenis) => {
+    if (!lenis) return;
+    updateReadingProgress(lenis.scroll);
   });
+
+  // 移动端无 Lenis，用原生 scroll 事件更新阅读进度
+  useEffect(() => {
+    if (!isMobile) return;
+    const handleScroll = () => updateReadingProgress(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
 
   // 当移动端目录框打开时，阻止body滚动
   useEffect(() => {

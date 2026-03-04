@@ -1,11 +1,18 @@
 'use client';
 
+import { useIsDesktop } from '@/lib/useMediaQuery';
 import { Lenis, useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isDesktop = useIsDesktop();
+
+  // 移动端禁用 Lenis，使用原生滚动（data-lenis-prevent 无法解决触摸滚动问题）
+  if (!isDesktop) {
+    return <>{children}</>;
+  }
 
   return (
     <Lenis
