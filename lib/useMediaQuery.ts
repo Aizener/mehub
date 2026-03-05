@@ -9,18 +9,15 @@ export function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    // Tailwind md breakpoint is 768px
     const mediaQuery = window.matchMedia('(min-width: 768px)');
 
-    // Set initial value
-    setIsDesktop(mediaQuery.matches);
+    // 放到微任务队列，避免 effect 内同步 setState 触发级联渲染
+    queueMicrotask(() => setIsDesktop(mediaQuery.matches));
 
-    // Create event listener
     const handleChange = (e: MediaQueryListEvent) => {
       setIsDesktop(e.matches);
     };
 
-    // Add listener (modern browsers)
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
