@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 import UsePWA from '@/components/UsePWA';
+import BlogAudio from '@/components/layout/BlogAudio';
 import Header from '@/components/layout/Header';
 import Main from '@/components/layout/Main';
 import LenisProvider from '@/components/providers/LenisProvider';
@@ -73,6 +75,8 @@ export default function RootLayout({
           </div>
           <div id="catalog-portal"></div>
         </LenisProvider>
+        <BlogAudio />
+        <Toaster richColors position="top-right" />
       </body>
       <UsePWA />
     </html>

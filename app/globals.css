@@ -156,3 +156,10 @@ body {
   cursor: grab;
   background: oklch(0.708 0 0 / 0.5);
 }
+
+.plyr {
+  flex: 1 !important;
+}
+.plyr .plyr__controls {
+  height: 100%;
+}
