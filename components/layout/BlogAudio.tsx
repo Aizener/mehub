@@ -27,15 +27,20 @@ function getIndexFromSource(el: HTMLAudioElement | null): number {
 /** 底部播放条：音频 + 歌词（PC 当前/下一句，手机当前句）+ 播放列表 */
 const MyAudio = ({
   showAudio,
+  showPlaylist,
   onPlayingChange,
+  onShowPlaylistChange,
+  audioBarRef,
 }: {
   showAudio: boolean;
+  showPlaylist: boolean;
   onPlayingChange?: (playing: boolean) => void;
+  onShowPlaylistChange: (show: boolean) => void;
+  audioBarRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<Plyr | null>(null);
   const onPlayingChangeRef = useRef(onPlayingChange);
-  const [showPlaylist, setShowPlaylist] = useState(false);
   const [playingIndex, setPlayingIndex] = useState(0);
   /** 当前歌全部歌词行（来自 WebVTT cues），用于取上一行/当前行/下一行 */
   const [lyricsLines, setLyricsLines] = useState<
@@ -175,6 +180,7 @@ const MyAudio = ({
 
   return (
     <motion.div
+      ref={audioBarRef}
       className="fixed bottom-0 left-0 z-90 flex w-full flex-col border-t border-gray-200 bg-white"
       initial={false}
       animate={{
@@ -186,7 +192,6 @@ const MyAudio = ({
       {/* 有歌词才显示：PC 三行（上一行/当前行/下一行），手机仅当前行 */}
       {lyricsLines.length > 0 && (
         <div className="flex min-h-6 shrink-0 items-center justify-start border-b border-dashed border-gray-200 py-2">
-          <span className="ml-6 shrink-0 text-sm text-gray-600">歌词：</span>
           {lyricsToShow.map((line, i) =>
             line.text.trim().length > 0 ? (
               <div
@@ -199,7 +204,7 @@ const MyAudio = ({
                 {line.text}
               </div>
             ) : (
-              '-'
+              ''
             )
           )}
         </div>
@@ -209,7 +214,7 @@ const MyAudio = ({
         <div className="flex h-full shrink-0 items-center px-4">
           <div
             className="cursor-pointer rounded-md p-0 text-gray-700 hover:bg-gray-100 md:p-2"
-            onClick={() => setShowPlaylist(!showPlaylist)}
+            onClick={() => onShowPlaylistChange(!showPlaylist)}
           >
             <Menu />
           </div>
@@ -250,12 +255,34 @@ const MyAudio = ({
 /** 页面右下角浮动唱片按钮：点击展开/收起底部播放条，可拖拽；播放时唱片旋转 */
 export default function BlogAudio() {
   const [showAudio, setShowAudio] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+  const audioBarRef = useRef<HTMLDivElement | null>(null);
+  const discButtonRef = useRef<HTMLDivElement | null>(null);
+
+  /** 点击/触摸屏幕其他地方：有播放列表时先关闭列表，否则关闭音乐栏（pointerdown 兼容鼠标与触摸） */
+  useEffect(() => {
+    if (!showAudio || !mounted) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (discButtonRef.current?.contains(target) || audioBarRef.current?.contains(target)) {
+        return;
+      }
+      if (showPlaylist) {
+        setShowPlaylist(false);
+      } else {
+        setShowAudio(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [showAudio, showPlaylist, mounted]);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const didDragRef = useRef(false);
@@ -263,6 +290,7 @@ export default function BlogAudio() {
   return (
     <>
       <motion.div
+        ref={discButtonRef}
         drag="y"
         dragMomentum={false}
         dragElastic={0}
@@ -282,7 +310,9 @@ export default function BlogAudio() {
             didDragRef.current = false;
             return;
           }
-          setShowAudio(!showAudio);
+          const next = !showAudio;
+          if (!next) setShowPlaylist(false);
+          setShowAudio(next);
         }}
       >
         <Disc3
@@ -293,7 +323,16 @@ export default function BlogAudio() {
         />
       </motion.div>
       {mounted &&
-        createPortal(<MyAudio showAudio={showAudio} onPlayingChange={setPlaying} />, document.body)}
+        createPortal(
+          <MyAudio
+            showAudio={showAudio}
+            showPlaylist={showPlaylist}
+            onPlayingChange={setPlaying}
+            onShowPlaylistChange={setShowPlaylist}
+            audioBarRef={audioBarRef}
+          />,
+          document.body
+        )}
     </>
   );
 }
