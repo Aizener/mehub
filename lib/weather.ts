@@ -61,3 +61,15 @@ export function getWeatherIcon(weather: string) {
   const weatherEnum = weatherValueMap[weather];
   return weatherEnum ? weatherIconMap[weatherEnum] : Cloud; // 默认返回 Cloud
 }
+
+// 解析逗号分隔的天气字符串，返回在枚举中的天气及其图标（按顺序）；无匹配时返回默认图标
+export function getWeatherIcons(weather: string): Array<{ Icon: typeof Sun; label: string }> {
+  const parts = weather.split(/[,，]/).map((s) => s.trim()).filter(Boolean);
+  const matched = parts
+    .filter((w) => weatherValueMap[w])
+    .map((w) => ({
+      Icon: weatherIconMap[weatherValueMap[w]!],
+      label: w,
+    }));
+  return matched.length > 0 ? matched : [{ Icon: Cloud, label: weather }];
+}

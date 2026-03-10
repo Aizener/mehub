@@ -71,7 +71,13 @@ export default function Annotation({
         onMouseEnter={handleOpen}
         onMouseLeave={scheduleClose}
       >
-        <div className="space-y-0.5 text-sm">
+        <div
+          data-lenis-prevent
+          className={cn(
+            'custom-scrollbar space-y-0.5 overflow-y-auto text-sm',
+            'max-h-64 md:max-h-92'
+          )}
+        >
           {items.map((item, idx) => (
             <div
               key={idx}

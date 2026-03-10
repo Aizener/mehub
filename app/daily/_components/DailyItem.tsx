@@ -12,7 +12,7 @@ import Code from '@/components/mdx/Code';
 import Link from '@/components/mdx/Link';
 import { useIsDesktop } from '@/lib/useMediaQuery';
 import { cn, throttle } from '@/lib/utils';
-import { getWeatherIcon } from '@/lib/weather';
+import { getWeatherIcons } from '@/lib/weather';
 
 const getWeekdayName = (weekday: number) => {
   const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
@@ -27,7 +27,7 @@ const MAX_HEIGHT_DESKTOP = 500;
 const MAX_HEIGHT_MOBILE = 300;
 
 export default function DailyItem({ daily }: DailyItemProps) {
-  const WeatherIcon = getWeatherIcon(daily.weather);
+  const weatherIcons = getWeatherIcons(daily.weather);
   const isDesktop = useIsDesktop();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -88,7 +88,11 @@ export default function DailyItem({ daily }: DailyItemProps) {
         </div>
         <div className="flex gap-x-4 md:flex-col md:gap-y-2">
           <div className="flex items-center gap-x-2 text-sm text-gray-700">
-            <WeatherIcon className="h-4 w-4 text-gray-700" />
+            {weatherIcons.map(({ Icon, label }, i) => (
+              <span key={i} title={label}>
+                <Icon className="h-4 w-4 text-gray-700" />
+              </span>
+            ))}
             <span>{daily.weather}</span>
           </div>
           <div className="flex items-center gap-x-2 text-sm text-gray-700">
