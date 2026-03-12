@@ -52,7 +52,7 @@ function NoticeDetailDrawer({ notice, open, onOpenChange }: NoticeDetailDrawerPr
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent direction="right">
+      <DrawerContent direction="right" className="z-100">
         <DrawerHeader>
           <DrawerTitle>{notice.title}</DrawerTitle>
           <DrawerDescription className="sr-only">公告详情：{notice.title}</DrawerDescription>

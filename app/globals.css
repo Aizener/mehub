@@ -138,7 +138,7 @@ body {
 
 /* 自定义滚动条样式 */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 0;
+  width: 0 !important;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {

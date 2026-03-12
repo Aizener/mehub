@@ -102,36 +102,51 @@ function FloatingBar() {
 
   return (
     <div
-      className="custom-scrollbar order-1 overflow-y-auto px-2 pb-1 md:fixed md:max-h-[85vh] md:w-3xs"
+      className="custom-scrollbar order-1 -ml-2 overflow-y-auto px-2 pb-1 md:fixed md:max-h-[85vh] md:w-[268px]"
       data-lenis-prevent
     >
-      <CardContent className="bg-background/50 flex items-center gap-x-3 backdrop-blur-sm md:sticky md:top-0">
-        <Avatar className="size-10 border border-gray-200 p-0.5">
-          <AvatarImage src="/imgs/avatar.jpg" alt="@shadcn" className="rounded-full" />
-          <AvatarFallback>Cola</AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col gap-y-1">
-          <h1 className="text-md font-bold text-gray-800">可乐爱宅着</h1>
-          <div className="flex flex-wrap items-center gap-x-1">
-            <Badge
-              className="h-5 bg-red-600 text-xs text-white dark:bg-blue-600"
-              variant="secondary"
-            >
-              90后
-            </Badge>
-            <Badge
-              className="h-5 bg-blue-500 text-xs text-white dark:bg-blue-600"
-              variant="secondary"
-            >
-              宅
-            </Badge>
-            <Badge
-              className="h-5 bg-orange-500 text-xs text-white dark:bg-blue-600"
-              variant="secondary"
-            >
-              <BadgeCheckIcon />
-              爱打游戏
-            </Badge>
+      <CardContent className="bg-background/50 z-50 flex flex-col items-center gap-x-4 backdrop-blur-sm md:sticky md:top-0">
+        <div className="flex w-full items-center gap-x-4">
+          <Avatar className="size-10 border border-gray-200 p-0.5">
+            <AvatarImage src="/imgs/avatar.jpg" alt="@shadcn" className="rounded-full" />
+            <AvatarFallback>Cola</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col gap-y-1">
+            <h1 className="text-md font-bold text-gray-800">可乐爱宅着</h1>
+            <div className="flex flex-wrap items-center gap-x-1">
+              <Badge
+                className="h-5 bg-red-600 text-xs text-white dark:bg-blue-600"
+                variant="secondary"
+              >
+                90后
+              </Badge>
+              <Badge
+                className="h-5 bg-blue-500 text-xs text-white dark:bg-blue-600"
+                variant="secondary"
+              >
+                宅
+              </Badge>
+              <Badge
+                className="h-5 bg-orange-500 text-xs text-white dark:bg-blue-600"
+                variant="secondary"
+              >
+                <BadgeCheckIcon />
+                爱打游戏
+              </Badge>
+            </div>
+          </div>
+        </div>
+        {/* <div className="mt-3 mb-2 flex w-full items-center justify-between gap-x-2">
+          <div className="h-px flex-1 bg-linear-to-r from-gray-200 to-gray-400"></div>
+          <div className="h-1 w-1 rounded-full bg-gray-500"></div>
+          <div className="h-px flex-1 bg-linear-to-r from-gray-400 to-gray-200"></div>
+        </div> */}
+        <div className="mt-3 mb-2 h-px w-full bg-gray-200"></div>
+        <div className="w-full text-sm font-bold text-gray-700">
+          <p className="text-left">花有重开日，人无再少年。</p>
+          <div className="flex items-center justify-end gap-x-2">
+            <div className="h-px w-16 rounded-md bg-linear-to-r from-gray-300 to-gray-500"></div>
+            珍重！
           </div>
         </div>
       </CardContent>

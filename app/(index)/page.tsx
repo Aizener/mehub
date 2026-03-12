@@ -156,7 +156,7 @@ async function HomePage() {
           </CardContent>
         </div>
         <div className="relative flex-1">
-          <div className="w-3xs"></div>
+          <div className="w-[260px]"></div>
           <FloatingBar />
         </div>
       </div>
