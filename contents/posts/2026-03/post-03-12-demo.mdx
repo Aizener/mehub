@@ -1,0 +1,159 @@
+---
+title: 通过Vite创建的项目如何进行Prettier的代码格式化
+summary: 通过Vite创建的项目中，默认只有eslint而没有prettier的配置，这里以React项目为例简单介绍如何进行Prettier的代码格式化。
+date: 2026/03/12 15:10
+tags:
+  - vite
+  - eslint
+  - prettier
+---
+
+之前使用`next.js`的时候，通过脚手架`npx create-next-app@latest demo`创建的项目，会自动集成`eslint`和`prettier`，并且会自动在保存时格式化代码。
+
+使用起来觉得还不赖，但是通过`vite`创建的`react`项目，只有`eslint`插件而没有`prettier`，所以需要手动配置。
+
+所以，这里来分享一下通过`vite`创建的`react`项目怎么使用`prettier`来自动格式化代码，当然，因为`vite`的优秀，完成这个过程十分简单。
+
+# 配置步骤
+
+创建项目的步骤就不赘述了，按照官方的文档直接就很容易创建好一个`react`的项目了。
+
+## 安装prettier和eslint-config-prettier
+
+通过`vite`完成项目的搭建后，在终端切到项目所在目录，执行：
+```shell
+npm install -D prettier eslint-config-prettier
+```
+
+## 文件配置
+
+接着，我们找到`eslint.config.js`文件，这个是`eslint`的配置文件，我们打开它，可以看到以下内容，并且新增`eslintConfigPrettier`这一行：
+
+```javascript
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import { defineConfig, globalIgnores } from 'eslint/config';
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+  },
+  eslintConfigPrettier, // 必须放在最后，关闭与 Prettier 冲突的规则
+]);
+
+```
+
+这样，`eslint`和`prettier`就配置完成了，此时需要在根目录新建`.prettierrc`文件来配置我们的规则，例如：
+
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 100
+}
+```
+
+建议在根目录再新建`.prettierignore`，来避免不需要格式化的目录：
+
+```
+node_modules
+dist
+build
+.next
+coverage
+```
+
+## 此时，文件的配置就完成了，接下来我们进行VSCode的配置。
+
+对于`VSCode`的配置，我们需要先安装`Prettier - Code formatter`插件，然后进入：【文件】-> 【首选项】 -> 【设置】，按照下图进行切换或者勾选：
+
+![VSCode 默认格式化程序设置](/imgs/posts/2026-03/03-12-vite-prettier/1.png)
+![VSCode 保存时格式化设置](/imgs/posts/2026-03/03-12-vite-prettier/2.png)
+
+勾选完成后，保存文件，此时编辑器会在保存时自动格式化代码。
+
+## 验证配置是否生效
+
+可以故意打乱某段代码的格式（如去掉分号、单引号改双引号），保存文件后，若格式自动恢复，说明配置已生效。
+
+或者查看编辑器右下角的`Prettier`图标，若显示`✗`，则说明配置未生效或被忽略。
+
+**命令行测试**
+
+也可以打开终端，输入如下命令：
+```shell
+npx prettier --check .
+```
+如果配置是正确的，这个命令将会输出不满足`prettier`规则的文件列表。继续输入命令：
+
+```shell
+npx prettier --write .
+```
+这个命令将会自动格式化所有文件。
+
+## eslint-plugin-prettier 
+
+可能有人会注意到，之前配置`eslint`和`prettier`的时候，可能还会有`eslint-plugin-prettier`这样的配置，还会搭配`rules`来使用，例如：
+```javascript
+{
+  "rules": {
+    "prettier/prettier": "warn",
+  }
+}
+```
+这样的话，通过`eslint`检测时，还会检测`prettier`的规则来进行提示，但是这个方案如今不再推荐了，因为重复的检测可能会导致性能的问题。
+
+| 方案 | 作用 | 对应的包 |
+| :--- | :--- | :--- |
+| eslint-config-prettier | 关闭与 Prettier 冲突的 ESLint 规则 | eslint-config-prettier |
+| eslint-plugin-prettier | 把 Prettier 的格式问题当作 ESLint 警告显示（黄线） | eslint-plugin-prettier |
+
+## prettier插件推荐
+
+既然都说到这里了，这里我再推荐两款个人比较好用的插件，分别是：
+
+**prettier-plugin-tailwindcss**：这个插件会帮忙格式化`tailwindcss`的代码，使其排版更好看。
+**@trivago/prettier-plugin-sort-imports**：这个插件会帮忙格式化`import`的代码，让`import`导入时的排版更好看。
+**@ianvs/prettier-plugin-sort-imports**：和`@trivago/prettier-plugin-sort-imports`功能类似，但是更强大，支持更多功能。
+
+配置十分简单，可以在`npm`中找到对应的方法，例如：
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "printWidth": 120,
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "^@core/(.*)$",
+    "^@server/(.*)$",
+    "^@ui/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"]
+}
+```
+
+# 结语
+
+以上就是通过`vite`创建的`react`项目怎么使用`prettier`来自动格式化代码的全部内容，希望对大家有所帮助。

@@ -11,4 +11,6 @@ export const siteConfig = {
   recordNumber: '- -',
   // 作者
   author: 'Cola',
+  // GitHub 链接
+  github: 'https://github.com/Aizener/mehub',
 };

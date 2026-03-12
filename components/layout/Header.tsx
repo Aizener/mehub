@@ -4,6 +4,7 @@ import { GithubIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { siteConfig } from '@/config/site.config';
 import { cn } from '@/lib/utils';
 
 const navs = [
@@ -34,7 +35,7 @@ function Header() {
         ))}
         <div className="h-4 w-px bg-gray-300" />
         <Link
-          href="https://github.com/Aizener"
+          href={siteConfig.github}
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-700 hover:text-gray-950"
