@@ -275,8 +275,6 @@ export default function BlogAudio() {
       }
       if (showPlaylist) {
         setShowPlaylist(false);
-      } else {
-        setShowAudio(false);
       }
     };
     document.addEventListener('pointerdown', handlePointerDown);

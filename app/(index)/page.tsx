@@ -86,7 +86,7 @@ async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:flex-row md:gap-x-4 md:px-0 md:pt-0">
+      <div className="flex w-full flex-col gap-y-4 px-2 pt-2 md:flex-row md:gap-x-3 md:px-0 md:pt-0">
         <div className="order-2 w-full">
           <CardContent>
             <h1 className="after:from-foreground after:to-foreground/50 relative inline-flex text-lg font-bold after:absolute after:-bottom-1 after:-left-1 after:h-1 after:w-2/3 after:rounded-md after:bg-linear-to-r after:content-['']">

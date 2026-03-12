@@ -7,6 +7,10 @@ tags:
   - node.js
 ---
 
+<Changelog items={[{
+  date: '2026-03-02', content: '更新了中间件的说明，在next.js16版本中中间件更名为代理。'
+}]} />
+
 作为基于`react.js`的全栈框架`next.js`在现在不可谓不热门，我个人也上手用了一段时间，体验上面来说还是不错的。所以在这里，给大家分享一下`next.js`的入手指南！
 
 **如果有理解不到位的地方，还请指正！**
@@ -471,7 +475,7 @@ export default LayoutB;
 
 如果不是非得使用**拦截路由**和**并行路由**的话，暂时不建议。我在一些论坛上看到挺多人提出问题的，自己在学习这部分时也有问题，有时需要删除`.next`重新启动服务才能解决。
 
-## 中间件
+## 中间件 -> 代理
 
 在`next.js`中，中间件一般是用来做路由拦截、响应或者鉴权来使用的。通过在`src`或者根目录下创建文件<Annotation items={[{ note: '1. 从 Next.js 16 开始，中间件（Middleware）更名为代理（Proxy），以更好地体现其用途。其功能保持不变。' }, { note: '2. 详见：<a href="https://nextjs.org/docs/app/getting-started/proxy" target="_blank" style="color: #0070f3; text-decoration: underline;">next.js Proxy代理</a>' }]}>`middleware.ts` -> `proxy.ts`</Annotation>来使用，并且需要默认导出一个函数，如下：
 

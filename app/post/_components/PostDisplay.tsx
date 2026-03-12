@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom';
 
 import { Post } from '@/.content-collections/generated';
 import Annotation from '@/components/mdx/Annotation';
+import Changelog from '@/components/mdx/Changelog';
 import TagAndDate from '@/components/post/TagAndDate';
 import { useIsMobile } from '@/lib/useMediaQuery';
 import { cn } from '@/lib/utils';
@@ -198,6 +199,7 @@ function PostDisplay({ post }: { post: Post }) {
           code={post.mdx}
           components={{
             Annotation,
+            Changelog,
           }}
         />
         {/* <div dangerouslySetInnerHTML={{ __html: post.html }}></div> */}

@@ -102,7 +102,7 @@ function FloatingBar() {
 
   return (
     <div
-      className="custom-scrollbar order-1 overflow-y-auto pb-1 md:fixed md:max-h-[85vh] md:w-3xs"
+      className="custom-scrollbar order-1 overflow-y-auto px-2 pb-1 md:fixed md:max-h-[85vh] md:w-3xs"
       data-lenis-prevent
     >
       <CardContent className="bg-background/50 flex items-center gap-x-3 backdrop-blur-sm md:sticky md:top-0">
