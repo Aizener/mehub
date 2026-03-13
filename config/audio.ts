@@ -27,4 +27,14 @@ export const AUDIO_PLAYLIST: AudioPlaylistItem[] = [
     src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/tonghuazhen.mp3',
     vtt: '/audio/tonghuazhen.vtt',
   },
+  {
+    title: '离开我的依赖',
+    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/likaiwodeyilai.mp3',
+    vtt: '/audio/likaiwodeyilai.vtt',
+  },
+  {
+    title: '我走后',
+    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/wozouhou.mp3',
+    vtt: '/audio/wozouhou.vtt',
+  },
 ];
