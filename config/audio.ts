@@ -3,38 +3,18 @@ export type AudioPlaylistItem = { title: string; src: string; vtt?: string };
 
 export const AUDIO_PLAYLIST: AudioPlaylistItem[] = [
   {
-    title: 'Always Online',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/Always%20Online.mp3',
-    vtt: '/audio/always-online.vtt',
+    title: '九万字-黄诗扶',
+    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/jiuwanzi-huangshifu.mp3',
+    vtt: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/jiuwanzi-huangshifu.vtt',
   },
   {
-    title: '九万字',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/jiuwanzi.mp3',
-    vtt: '/audio/jiuwanzi.vtt',
+    title: '谁-曲肖冰',
+    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/shui-quxiaobing.mp3',
+    vtt: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/shui-quxiaobing.vtt',
   },
   {
-    title: '起风了',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/qifengle.mp3',
-    vtt: '/audio/qifengle.vtt',
-  },
-  {
-    title: '稻香',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/daoxiang.mp3',
-    vtt: '/audio/daoxiang.vtt',
-  },
-  {
-    title: '童话镇',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/tonghuazhen.mp3',
-    vtt: '/audio/tonghuazhen.vtt',
-  },
-  {
-    title: '离开我的依赖',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/likaiwodeyilai.mp3',
-    vtt: '/audio/likaiwodeyilai.vtt',
-  },
-  {
-    title: '我走后',
-    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/wozouhou.mp3',
-    vtt: '/audio/wozouhou.vtt',
+    title: '忘了(×0.9)-周林枫',
+    src: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/wangle-x0.9-zhoulinfeng.mp3',
+    vtt: 'https://bclrdurhfcngbotyjqke.supabase.co/storage/v1/object/public/blog/wangle-x0.9-zhoulinfeng.vtt',
   },
 ];
