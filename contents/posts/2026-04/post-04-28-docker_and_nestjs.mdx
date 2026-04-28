@@ -1,0 +1,139 @@
+---
+title: 用 Docker 构建 NestJS 应用并优化镜像体积
+summary: 这篇文章会通过 Docker 构建一个 NestJS 应用，并用多阶段构建减少最终镜像体积。
+date: 2026/04/28 11:00
+tags:
+  - docker
+  - nestjs
+---
+
+# 开始
+
+先用 `nest-cli` 创建一个最基础的 `Hello World` 项目：
+
+```bash
+nest new test-app
+```
+
+创建完成后，先在本地确认项目能正常运行：
+
+```bash
+npm run start:dev
+```
+
+默认情况下，`NestJS` 会监听 `3000` 端口。确认本地访问没有问题后，再开始配置 `Docker`，这样后面如果容器启动失败，也能知道问题出在哪里。
+
+# Docker 配置
+
+在项目根目录创建 `Dockerfile`，我们使用多阶段构建来分别处理“构建”和“运行”两个阶段。
+
+## 为什么使用多阶段构建
+
+`Docker` 镜像构建时可以拆成多个阶段，但最终进入镜像的只有最后一个阶段，前面阶段的产物不会进入最终镜像。
+
+这意味着我们可以在前面的阶段里安装完整依赖、编译，而在最后一个阶段只保留运行时需要的文件和生产依赖。这样做有两个明显好处：
+
+- 最终镜像更小
+- 运行环境更干净，减少无关文件和开发依赖
+
+## 阶段 1：构建
+
+第一阶段负责安装完整依赖并执行构建：
+
+```dockerfile
+FROM node:22-alpine AS builder
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+```
+
+这里使用 `npm ci`，而不是 `npm install`。如果项目里已经有 `package-lock.json`，那么 `npm ci` 会严格的遵守该文件的版本约束，避免出现版本冲突。
+
+## 阶段 2：运行
+
+第二阶段只保留运行 NestJS 所需要的内容：
+
+```dockerfile
+FROM node:22-slim AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --no-optional
+
+COPY --from=builder /app/dist ./dist
+
+EXPOSE 3000
+CMD ["node", "dist/main.js"]
+```
+
+这个阶段里我们只安装生产依赖，并复制构建后的 `dist` 目录，因此镜像体积会更小。
+
+> **说明**：阶段1和阶2都在同一文件中！
+
+如果你的项目除了 `dist` 之外，还依赖以下内容，也要记得额外复制进去：
+
+- 静态资源目录
+- 模板文件
+- Prisma 相关产物
+- 运行时需要读取的配置文件
+
+否则项目虽然能构建成功，但容器启动后可能会报找不到文件。
+
+## 构建并运行镜像
+
+写完 `Dockerfile` 后，可以直接执行下面两条命令进行验证：
+
+```bash
+docker build --no-cache -t nest-demo .
+docker run --rm -p 3000:3000 nest-demo
+```
+
+如果容器启动成功，就可以在浏览器中访问 `http://localhost:3000`。
+
+## .dockerignore
+
+`.dockerignore` 用来告诉 Docker：哪些文件不需要参与构建上下文。这个文件虽然不起眼，但很有必要，因为它可以减少无关文件被复制进构建过程，也能提升构建速度。
+
+例如：
+
+```txt
+node_modules
+dist
+build
+.git
+.next
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log
+```
+
+# 其他补充
+
+## .npmrc
+
+如果你的网络环境访问官方 npm 源较慢，也可以通过 `.npmrc` 指定镜像源：
+
+```ini
+registry=https://registry.npmmirror.com
+```
+
+这样在 `Docker` 构建过程中安装依赖时，会走你配置好的镜像源。
+不过这部分是可选项，不属于 `Docker` 构建 `NestJS` 的必要条件。
+
+## 一个简单的体积优化思路
+
+如果你对镜像大小比较敏感，可以对比以下两种方式：
+
+- 单阶段构建：安装全部依赖，源码和构建产物一起进入最终镜像；
+- 多阶段构建：在构建阶段编译，在运行阶段只保留生产依赖和 `dist`。
+
+通常第二种方式会明显更小，也更适合部署到服务器或容器平台。
