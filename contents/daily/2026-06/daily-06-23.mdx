@@ -1,0 +1,23 @@
+---
+title: 通过VercelAI + RAG实现个人简历助手
+weather: 晴
+date: 2026-06-21 19:31
+---
+
+<div className="text-sm text-gray-800 p-4">
+  <div>
+    前段时间对游戏开发起了兴趣，花了业余的时间了解<Code>Unity</Code> -> <Code>Godot</Code> -> <Code>UE5</Code>...甚至还去学了下<Code>Blender</Code>来建模...<br />
+    但是发现游戏开发是一个漫长的过程...即使一个精美的独立小游戏，也不是简单就能完成的，那就暂且先不急吧ε=(´ο｀*)...
+  </div>
+  <div className="mt-2">
+    期间也对<Link href="https://ai-sdk.dev/">Vercel AI SDK</Link>挺感兴趣的，而且发现使用起来也比较方便。于是乎...就想着基于<Annotation items={[{
+      note: 'RAG（Retrieval-Augmented Generation，检索增强生成）可以一句话理解：先去“查资料”，再让大模型基于资料来回答问题。'
+    }]}>vibe</Annotation>概念来实现一个个人<Code>AI</Code>简历助手！
+  </div>
+  <div className="mt2">
+    因为是第一次接触，就没有用<Code>Agent</Code>来*Vibe*了...一共买了*Deepseek*和阿里云的两个<Code>AI Api</Code>服务...搭配上<Link href="https://neon.com/">Neon</Link>的*Postgres*向量数据库，花两天总算完成了...
+  </div>
+  <div className="mt-2">
+    可以点击：<Link href="http://ai-resume.iamcola.cc">我的个人AI简历助手</Link> 网址来体验`φ(゜▽゜*)♪~`
+  </div>
+</div>
